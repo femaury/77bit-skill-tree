@@ -9,10 +9,10 @@ export default function App() {
   const [selectedTree, setSelectedTree] = useState<keyof SkillTrees>(Object.keys(trees)[0] as keyof SkillTrees);
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-900 to-gray-800 text-white p-8">
+    <div className="min-h-screen bg-white/10 p-8">
       <div className="max-w-6xl mx-auto">
-        <h1 className="text-3xl font-bold mb-8 text-center bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400">
-          Skill Trees
+        <h1 className="text-4xl font-black mb-8 text-center text-accent">
+          77-Bit Skill Trees
         </h1>
         <div className="mb-8 flex justify-center">
           <TreeSelect

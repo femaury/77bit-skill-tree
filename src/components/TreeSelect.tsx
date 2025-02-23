@@ -13,19 +13,19 @@ export function TreeSelect({ trees, value, onValueChange }: TreeSelectProps) {
     <Select.Root value={String(value)} onValueChange={onValueChange}>
       <Select.Trigger
         className="inline-flex items-center justify-between rounded-lg px-6 py-2 text-sm
-                   bg-gray-800 border-2 border-blue-500/20 w-full max-w-md
-                   focus:outline-none focus:border-blue-500/40 transition-colors
-                   hover:border-blue-500/30"
+                   bg-black/10 border-2 border-accent/50 w-full max-w-md
+                   focus:outline-none focus:border-accent transition-colors
+                   hover:border-accent/80"
       >
         <Select.Value />
         <Select.Icon>
-          <ChevronDownIcon className="h-4 w-4 opacity-50" />
+          <ChevronDownIcon className="h-4 w-4 text-accent" />
         </Select.Icon>
       </Select.Trigger>
 
       <Select.Portal>
         <Select.Content
-          className="overflow-hidden bg-gray-800 border border-gray-700 rounded-lg shadow-xl
+          className="overflow-hidden bg-black/50 backdrop-blur-sm border border-accent rounded-lg shadow-xl
                      animate-fadein fadein-0 zoomin-95"
         >
           <Select.Viewport className="p-1">
@@ -33,13 +33,13 @@ export function TreeSelect({ trees, value, onValueChange }: TreeSelectProps) {
               <Select.Item
                 key={treeId}
                 value={treeId}
-                className="relative flex items-center px-8 py-2 text-sm text-gray-300
-                          rounded-md hover:bg-gray-700 cursor-pointer
-                          data-[highlighted]:bg-gray-700 data-[highlighted]:outline-none"
+                className="relative flex items-center px-8 py-2 text-sm text-white
+                          rounded-md hover:bg-white/20 cursor-pointer
+                          data-[highlighted]:bg-white/20 data-[highlighted]:outline-none"
               >
                 <Select.ItemText>{treeId}</Select.ItemText>
                 <Select.ItemIndicator className="absolute left-2 inline-flex items-center">
-                  <CheckIcon className="h-4 w-4" />
+                  <CheckIcon className="h-4 w-4 text-accent" />
                 </Select.ItemIndicator>
               </Select.Item>
             ))}

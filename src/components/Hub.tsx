@@ -29,9 +29,9 @@ export function Hub({ hub, allNodes }: HubProps) {
   }
 
   return (
-    <div className="bg-gray-800/50 backdrop-blur-sm rounded-xl p-6 border border-gray-700/50 shadow-lg">
+    <div className="bg-black/30 backdrop-blur-sm rounded-xl p-6 border border-white/20 shadow-lg">
       <div className="mb-6 flex items-center gap-3">
-        <div className="bg-blue-500/20 rounded-lg px-4 py-2 text-blue-400 font-medium">
+        <div className="bg-white/10 rounded-lg px-4 py-2 text-white font-medium">
           Points to unlock: {hub.pointsToUnlock || 0}
         </div>
       </div>
