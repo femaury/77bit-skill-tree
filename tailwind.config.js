@@ -6,6 +6,9 @@ export default {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        sans: ['Red Hat Mono', 'monospace'],
+      },
       keyframes: {
         "fade-in": {
           "0%": { opacity: 0 },
