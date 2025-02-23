@@ -1,5 +1,6 @@
 import * as HoverCard from '@radix-ui/react-hover-card';
 import { SkillNode as SkillNodeType, Skill } from '../types';
+import { useState } from 'react';
 
 interface SkillNodeProps {
   node: SkillNodeType;
@@ -7,6 +8,8 @@ interface SkillNodeProps {
 }
 
 export function SkillNode({ node, layout = 'vertical' }: SkillNodeProps) {
+  const [openSkillId, setOpenSkillId] = useState<string | null>(null);
+
   const getTypeColor = (type: string) => {
     switch (type) {
       case 'ChooseOneSkill':
@@ -37,12 +40,27 @@ export function SkillNode({ node, layout = 'vertical' }: SkillNodeProps) {
             : ''
         }`}>
           {node.skills?.map((skill: Skill) => (
-            <HoverCard.Root key={skill.id} openDelay={200} closeDelay={100}>
+            <HoverCard.Root
+              key={skill.id}
+              openDelay={200}
+              closeDelay={100}
+              open={openSkillId === skill.id}
+              onOpenChange={(open) => setOpenSkillId(open ? skill.id : null)}
+            >
               <HoverCard.Trigger asChild>
                 <div 
                   className="bg-black/50 backdrop-blur-sm rounded-lg p-3 
                             border border-white/20 cursor-pointer
-                            hover:border-accent transition-all duration-300"
+                            hover:border-accent transition-all duration-300
+                            touch-manipulation"
+                  onClick={() => setOpenSkillId(openSkillId === skill.id ? null : skill.id)}
+                  onTouchStart={(e) => {
+                    e.preventDefault();
+                    setOpenSkillId(skill.id);
+                  }}
+                  onTouchEnd={(e) => {
+                    e.preventDefault();
+                  }}
                 >
                   <div className="font-medium text-white">{skill.name}</div>
                   <div className="text-sm text-white/60 mt-1">{skill.slot === "none" ? "Passive" : "Active"}</div>
