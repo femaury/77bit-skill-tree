@@ -1,6 +1,6 @@
 import * as HoverCard from '@radix-ui/react-hover-card';
 import { SkillNode as SkillNodeType, Skill } from '../types';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 interface SkillNodeProps {
   node: SkillNodeType;
@@ -9,6 +9,17 @@ interface SkillNodeProps {
 
 export function SkillNode({ node, layout = 'vertical' }: SkillNodeProps) {
   const [openSkillId, setOpenSkillId] = useState<string | null>(null);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 1024);
+    };
+
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   const getTypeColor = (type: string) => {
     switch (type) {
@@ -21,6 +32,11 @@ export function SkillNode({ node, layout = 'vertical' }: SkillNodeProps) {
       default:
         return 'from-white/5 to-white/10 text-white/60';
     }
+  };
+
+  const getHoverCardSide = () => {
+    if (isMobile) return 'bottom';
+    return layout === 'vertical' ? 'right' : 'bottom';
   };
 
   return (
@@ -69,20 +85,12 @@ export function SkillNode({ node, layout = 'vertical' }: SkillNodeProps) {
 
               <HoverCard.Portal>
                 <HoverCard.Content
-                  className="w-100 bg-black/50 backdrop-blur-sm rounded-lg p-4 
-                            border border-accent/70 shadow-xl
-                            data-[state=open]:animate-fadein
-                            data-[state=closed]:animate-fadeout
-                            data-[state=closed]:fadeout-0
-                            data-[state=open]:fadein-0
-                            data-[state=closed]:zoomout
-                            data-[state=open]:zoomin
-                            data-[side=bottom]:slidefromtop
-                            data-[side=top]:slidefrombottom
-                            data-[side=right]:slidefromleft
-                            data-[side=left]:slidefromright"
+                  className="w-100 max-w-[calc(100vw-1rem)] 
+                          bg-black/50 backdrop-blur-sm rounded-lg p-4
+                            border border-accent/70 shadow-xl"
                   sideOffset={5}
-                  side={layout === 'vertical' ? 'right' : 'bottom'}
+                  side={getHoverCardSide()}
+                  align={isMobile ? "center" : "start"}
                 >
                   <div className="space-y-2">
                     <div className="font-medium text-white">{skill.name}</div>
