@@ -1,0 +1,2806 @@
+{
+  "Hacker": {
+    "startHubId": "0x0100000D00008B16",
+    "children": {
+      "0x0100000D00006C8F": {
+        "id": "0x0100000D00006C8F",
+        "type": "Hub",
+        "pointsToUnlock": 0,
+        "nextHubNode": "0x0100000D00006D16",
+        "children": [
+          "0x0100000D00007255",
+          "0x0100000D0000725A"
+        ]
+      },
+      "0x0100000D00006CC2": {
+        "id": "0x0100000D00006CC2",
+        "type": "Hub",
+        "pointsToUnlock": 10,
+        "nextHubNode": "0x0100000D0000729A",
+        "children": [
+          "0x0100000D00007264",
+          "0x01000012000035F7"
+        ]
+      },
+      "0x0100000D00006D16": {
+        "id": "0x0100000D00006D16",
+        "type": "Hub",
+        "pointsToUnlock": 5,
+        "nextHubNode": "0x0100000D00006CC2",
+        "children": [
+          "0x0100000D0000727E",
+          "0x0100000D00007286"
+        ]
+      },
+      "0x0100000D00006D39": {
+        "id": "0x0100000D00006D39",
+        "type": "Hub",
+        "pointsToUnlock": 20,
+        "children": [
+          "0x0100000D00007290",
+          "0x01000012000035FF"
+        ]
+      },
+      "0x0100000D00007255": {
+        "id": "0x0100000D00007255",
+        "type": "ChooseOneSkill",
+        "parent": "0x0100000D00006C8F",
+        "skills": [
+          {
+            "id": "0x01000012000041A9",
+            "name": "Overclock",
+            "description": "Ability damage increased by [5/10/15%].\r\n",
+            "slot": "none",
+            "maxLevel": 3,
+            "levelDescriptions": {
+              "1": [
+                {
+                  "key": "Extra Damage",
+                  "value": "5%"
+                }
+              ],
+              "2": [
+                {
+                  "key": "Extra Damage",
+                  "value": "10%"
+                }
+              ],
+              "3": [
+                {
+                  "key": "Extra Damage",
+                  "value": "15%"
+                }
+              ]
+            }
+          },
+          {
+            "id": "0x01000012000041B1",
+            "name": "Defrag",
+            "description": "Ability Cost decreased by [3/6/9%].",
+            "slot": "none",
+            "maxLevel": 3,
+            "levelDescriptions": {
+              "1": [
+                {
+                  "key": "Cost Decrease",
+                  "value": "3%"
+                }
+              ],
+              "2": [
+                {
+                  "key": "Cost Decrease",
+                  "value": "6%"
+                }
+              ],
+              "3": [
+                {
+                  "key": "Cost Decrease",
+                  "value": "9%"
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "0x0100000D0000725A": {
+        "id": "0x0100000D0000725A",
+        "type": "ChooseOneSkill",
+        "parent": "0x0100000D00006C8F",
+        "skills": [
+          {
+            "id": "0x01000012000041D5",
+            "name": "Cyber leech",
+            "description": "Launch an area attack, slightly damaging enemies within range and applying [Bleed]. For each enemy affected, you gain 4 binary.",
+            "slot": "skill1",
+            "maxLevel": 5,
+            "levelDescriptions": {
+              "1": [
+                {
+                  "key": "Unlock [Cyber leech] skill",
+                  "value": ""
+                },
+                {
+                  "key": "Applies [Bleed] to target for 5 sec.",
+                  "value": ""
+                }
+              ],
+              "2": [
+                {
+                  "key": "[Cyber leech] deals more damage",
+                  "value": "5%"
+                },
+                {
+                  "key": "[Bleed] deals more damage",
+                  "value": "5%"
+                }
+              ],
+              "3": [
+                {
+                  "key": "[Cyber leech] deals more damage",
+                  "value": "10%"
+                },
+                {
+                  "key": "[Bleed] deals more damage",
+                  "value": "10%"
+                }
+              ],
+              "4": [
+                {
+                  "key": "[Cyber leech] deals more damage",
+                  "value": "15%"
+                },
+                {
+                  "key": "[Bleed] deals more damage",
+                  "value": "15%"
+                }
+              ],
+              "5": [
+                {
+                  "key": "[Cyber leech] deals more damage",
+                  "value": "20%"
+                },
+                {
+                  "key": "[Bleed] deals more damage",
+                  "value": "20%"
+                }
+              ]
+            }
+          },
+          {
+            "id": "0x01000012000041B9",
+            "name": "Packet Injection",
+            "description": "Throw a corrupted data packet, damaging the target. Upon a successful kill, restore [20 Binary].",
+            "slot": "skill1",
+            "maxLevel": 5,
+            "levelDescriptions": {
+              "1": [
+                {
+                  "key": "Unlock [Packet Injection] skill",
+                  "value": ""
+                }
+              ],
+              "2": [
+                {
+                  "key": "[Packet Injection] deals more damage",
+                  "value": "5%"
+                }
+              ],
+              "3": [
+                {
+                  "key": "[Packet Injection] deals more damage",
+                  "value": "10%"
+                }
+              ],
+              "4": [
+                {
+                  "key": "[Packet Injection] deals more damage",
+                  "value": "15%"
+                }
+              ],
+              "5": [
+                {
+                  "key": "[Packet Injection] deals more damage",
+                  "value": "20%"
+                }
+              ]
+            }
+          },
+          {
+            "id": "0x01000012000041C7",
+            "name": "Trojan Rifle",
+            "description": "Shoot your rifle to deal damage and apply [Trojan] to the target. It will take an even greater hit after 3 second delay.",
+            "slot": "skill1",
+            "maxLevel": 5,
+            "levelDescriptions": {
+              "1": [
+                {
+                  "key": "Unlock [Trojan Rifle] skill",
+                  "value": ""
+                },
+                {
+                  "key": "Applies [Trojan] to target.",
+                  "value": ""
+                }
+              ],
+              "2": [
+                {
+                  "key": "[Trojan Rifle] deals more damage",
+                  "value": "5%"
+                },
+                {
+                  "key": "[Trojan] deals more damage.",
+                  "value": "5%"
+                }
+              ],
+              "3": [
+                {
+                  "key": "[Trojan Rifle] deals more damage",
+                  "value": "10%"
+                },
+                {
+                  "key": "[Trojan] deals more damage.",
+                  "value": "10%"
+                }
+              ],
+              "4": [
+                {
+                  "key": "[Trojan Rifle] deals more damage",
+                  "value": "15%"
+                },
+                {
+                  "key": "[Trojan] deals more damage.",
+                  "value": "15"
+                }
+              ],
+              "5": [
+                {
+                  "key": "[Trojan Rifle] deals more damage",
+                  "value": "20%"
+                },
+                {
+                  "key": "[Trojan] deals more damage.",
+                  "value": "20%"
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "0x0100000D00007264": {
+        "id": "0x0100000D00007264",
+        "type": "ChooseAnySkills",
+        "parent": "0x0100000D00006CC2",
+        "skills": [
+          {
+            "id": "0x0100000D000102A8",
+            "name": "Hackaton",
+            "description": "Upon use, abilities have a [20%/30%/40%] to get a [Concentration] that boosts your Critical Chance by [1%] and Damage by [5%].",
+            "slot": "none",
+            "maxLevel": 3,
+            "levelDescriptions": {
+              "1": [
+                {
+                  "key": " Chance to get [Concentration] upon ability use ",
+                  "value": "20%"
+                }
+              ],
+              "2": [
+                {
+                  "key": " Chance to get [Concentration] upon ability use ",
+                  "value": "30%"
+                }
+              ],
+              "3": [
+                {
+                  "key": " Chance to get [Concentration] upon ability use ",
+                  "value": "40%"
+                }
+              ]
+            }
+          },
+          {
+            "id": "0x0100000D000102BA",
+            "name": "Quick Fingers",
+            "description": "AGILITY increased by [4/8/12%].",
+            "slot": "none",
+            "maxLevel": 3,
+            "levelDescriptions": {
+              "1": [
+                {
+                  "key": "Extra Agility",
+                  "value": "4%"
+                }
+              ],
+              "2": [
+                {
+                  "key": "Extra Agility",
+                  "value": "8%"
+                }
+              ],
+              "3": [
+                {
+                  "key": "Extra Agility",
+                  "value": "12%"
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "0x0100000D0000727E": {
+        "id": "0x0100000D0000727E",
+        "type": "ChooseOneSkill",
+        "parent": "0x0100000D00006D16",
+        "skills": [
+          {
+            "id": "0x010000120000426F",
+            "name": "Minimum Cycles",
+            "description": "Ability Cooldown decreased by [4/8/12%].",
+            "slot": "none",
+            "maxLevel": 3,
+            "levelDescriptions": {
+              "1": [
+                {
+                  "key": "Cooldown Decrease",
+                  "value": "4%"
+                }
+              ],
+              "2": [
+                {
+                  "key": "Cooldown Decrease",
+                  "value": "8%"
+                }
+              ],
+              "3": [
+                {
+                  "key": "Cooldown Decrease",
+                  "value": "12%"
+                }
+              ]
+            }
+          },
+          {
+            "id": "0x0100001200004276",
+            "name": "A Bit Dodgy",
+            "description": "Upon use, activate [Dodge] for [2/3/4] seconds to evade enemy attacks more efficiently.",
+            "slot": "none",
+            "maxLevel": 3,
+            "levelDescriptions": {
+              "1": [
+                {
+                  "key": "Dodge length",
+                  "value": "2 sec."
+                }
+              ],
+              "2": [
+                {
+                  "key": "Dodge length",
+                  "value": "3 sec."
+                }
+              ],
+              "3": [
+                {
+                  "key": "Dodge length",
+                  "value": "4 sec."
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "0x0100000D00007286": {
+        "id": "0x0100000D00007286",
+        "type": "ChooseOneSkill",
+        "parent": "0x0100000D00006D16",
+        "skills": [
+          {
+            "id": "0x0100001200004286",
+            "name": "Code Rush",
+            "description": "Prepare to launch a surprise attack, activating [Shroud]: you will take less damage and move faster, and [Sucker Punch]: all attacks deal critical damage for 3 seconds.",
+            "slot": "skill2",
+            "maxLevel": 5,
+            "levelDescriptions": {
+              "1": [
+                {
+                  "key": "Unlock [Code Rush] skill",
+                  "value": ""
+                },
+                {
+                  "key": "Get [Shroud] for 8 sec",
+                  "value": ". take 3% less damage and move 4% faster"
+                },
+                {
+                  "key": "Get [Sucker Punch] for 3 sec",
+                  "value": "All attacks deal 150% more damage"
+                }
+              ],
+              "2": [
+                {
+                  "key": "[Shroud] improved",
+                  "value": "take 6% less damage, move 8% faster"
+                }
+              ],
+              "3": [
+                {
+                  "key": "[Shroud] improved",
+                  "value": "take 9% less damage, move 12% faster"
+                }
+              ],
+              "4": [
+                {
+                  "key": "[Shroud] improved",
+                  "value": "take 12% less damage, move 16% faster"
+                }
+              ],
+              "5": [
+                {
+                  "key": "[Shroud] improved",
+                  "value": "take 15% less damage, move 20% faster"
+                }
+              ]
+            }
+          },
+          {
+            "id": "0x010000120000428D",
+            "name": "Blood Music",
+            "description": "Gain [Sprint] to move faster and a stack of [Concentration] that boosts your Critical Chance and Damage.",
+            "slot": "skill2",
+            "maxLevel": 5,
+            "levelDescriptions": {
+              "1": [
+                {
+                  "key": "Unlock [Blood Music] skill",
+                  "value": ""
+                },
+                {
+                  "key": "Get [Sprint] for 6 sec.",
+                  "value": "Increase movement speed by 20%"
+                },
+                {
+                  "key": "Get [Concentration] for 6 sec.",
+                  "value": "Increase critical damage by 5% and critical chance by 1%"
+                }
+              ],
+              "2": [
+                {
+                  "key": "[Concentration] improved",
+                  "value": "Increase critical damage by 10% and critical chance by 2%"
+                }
+              ],
+              "3": [
+                {
+                  "key": "[Concentration] improved",
+                  "value": "Increase critical damage by 15% and critical chance by 3%"
+                }
+              ],
+              "4": [
+                {
+                  "key": "[Concentration] improved",
+                  "value": "Increase critical damage by 20% and critical chance by 4%"
+                }
+              ],
+              "5": [
+                {
+                  "key": "[Concentration] improved",
+                  "value": "Increase critical damage by 25% and critical chance by 5%"
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "0x0100000D00007290": {
+        "id": "0x0100000D00007290",
+        "type": "ChooseAnySkills",
+        "parent": "0x0100000D00006D39",
+        "skills": [
+          {
+            "id": "0x0100001200004297",
+            "name": "Untouchable",
+            "description": "When above 80% Health, [Binary Regeneration] is increased by [4/8/12%].",
+            "slot": "none",
+            "maxLevel": 3,
+            "levelDescriptions": {
+              "1": [
+                {
+                  "key": "[Binary Regeneration] is increased when above 80% health",
+                  "value": "4%"
+                }
+              ],
+              "2": [
+                {
+                  "key": "[Binary Regeneration] is increased when above 80% health",
+                  "value": "8%"
+                }
+              ],
+              "3": [
+                {
+                  "key": "[Binary Regeneration] is increased when above 80% health",
+                  "value": "12%"
+                }
+              ]
+            }
+          },
+          {
+            "id": "0x010000120000429E",
+            "name": "Desperate",
+            "description": "When below 20% Health, get extra [2/4/6%] Dodge Chance.",
+            "slot": "none",
+            "maxLevel": 3,
+            "levelDescriptions": {
+              "1": [
+                {
+                  "key": "Extra dodge chance when below 20% Health",
+                  "value": "2%"
+                }
+              ],
+              "2": [
+                {
+                  "key": "Extra dodge chance when below 20% Health",
+                  "value": "4%"
+                }
+              ],
+              "3": [
+                {
+                  "key": "Extra dodge chance when below 20% Health",
+                  "value": "6%"
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "0x0100000D0000729A": {
+        "id": "0x0100000D0000729A",
+        "type": "Hub",
+        "pointsToUnlock": 15,
+        "nextHubNode": "0x0100000D00006D39",
+        "children": [
+          "0x0100000D000072BD",
+          "0x0100000D000072C2"
+        ]
+      },
+      "0x0100000D000072BD": {
+        "id": "0x0100000D000072BD",
+        "type": "ChooseOneSkill",
+        "parent": "0x0100000D0000729A",
+        "skills": [
+          {
+            "id": "0x01000012000042B7",
+            "name": "RAM Overclock",
+            "description": "Ability damage increased by [3/6/9%].",
+            "slot": "none",
+            "maxLevel": 3,
+            "levelDescriptions": {
+              "1": [
+                {
+                  "key": "Ability damage increased",
+                  "value": "3%"
+                }
+              ],
+              "2": [
+                {
+                  "key": "Ability damage increased",
+                  "value": "6%"
+                }
+              ],
+              "3": [
+                {
+                  "key": "Ability damage increased",
+                  "value": "9%"
+                }
+              ]
+            }
+          },
+          {
+            "id": "0x01000012000042BE",
+            "name": "CPU Overclock",
+            "description": "Ability Cooldown decreased by [4/8/12%], applies [Slow] to enemies, each stack reducing their speed by [10%].",
+            "slot": "none",
+            "maxLevel": 3,
+            "levelDescriptions": {
+              "1": [
+                {
+                  "key": "Ability Cooldown decreased",
+                  "value": "4%"
+                }
+              ],
+              "2": [
+                {
+                  "key": "Ability Cooldown decreased",
+                  "value": "8%"
+                }
+              ],
+              "3": [
+                {
+                  "key": "Ability Cooldown decreased",
+                  "value": "12%"
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "0x0100000D000072C2": {
+        "id": "0x0100000D000072C2",
+        "type": "ChooseOneSkill",
+        "parent": "0x0100000D0000729A",
+        "skills": [
+          {
+            "id": "0x01000012000042C5",
+            "name": "Assault Cascade",
+            "description": "Chain up to five attacks together, making quick stabs at the enemies in front of you.",
+            "slot": "skill3",
+            "maxLevel": 5,
+            "levelDescriptions": {
+              "1": [
+                {
+                  "key": "Unlock [Assault Cascade] skill",
+                  "value": ""
+                }
+              ],
+              "2": [
+                {
+                  "key": "[Assault Cascade] deals more damage",
+                  "value": "7%"
+                }
+              ],
+              "3": [
+                {
+                  "key": "[Assault Cascade] deals more damage",
+                  "value": "14%"
+                }
+              ],
+              "4": [
+                {
+                  "key": "[Assault Cascade] deals more damage",
+                  "value": "21%"
+                }
+              ],
+              "5": [
+                {
+                  "key": "[Assault Cascade] deals more damage",
+                  "value": "28%"
+                }
+              ]
+            }
+          },
+          {
+            "id": "0x01000012000042CC",
+            "name": "Vampire Attack",
+            "description": "Fire five projectiles in a cone shape, dealing moderate damage. For each enemy affected, you gain 5 binary.",
+            "slot": "skill3",
+            "maxLevel": 5,
+            "levelDescriptions": {
+              "1": [
+                {
+                  "key": "Unlock [Vampire Attack] skill",
+                  "value": ""
+                },
+                {
+                  "key": "Get [Leech] for 3 sec for each enemy affected",
+                  "value": ""
+                }
+              ],
+              "2": [
+                {
+                  "key": "[Vampire Attack] deals more damage",
+                  "value": "7%"
+                }
+              ],
+              "3": [
+                {
+                  "key": "[Vampire Attack] deals more damage",
+                  "value": "14%"
+                }
+              ],
+              "4": [
+                {
+                  "key": "[Vampire Attack] deals more damage",
+                  "value": "21%"
+                }
+              ],
+              "5": [
+                {
+                  "key": "[Vampire Attack] deals more damage",
+                  "value": "28%"
+                }
+              ]
+            }
+          },
+          {
+            "id": "0x01000012000042D3",
+            "name": "Glitch Trap",
+            "description": "Plant a trap that damages enemies in a certain area and applies [Exposed] to them every [0.5] seconds, lowering their resistance by [5%].",
+            "slot": "skill3",
+            "maxLevel": 5,
+            "levelDescriptions": {
+              "1": [
+                {
+                  "key": "Unlock [Glitch Trap] skill",
+                  "value": ""
+                },
+                {
+                  "key": "Applies [Exposed] to target for 3 sec.",
+                  "value": ""
+                }
+              ],
+              "2": [
+                {
+                  "key": "[Glitch Trap] deals more damage",
+                  "value": "7%"
+                }
+              ],
+              "3": [
+                {
+                  "key": "[Glitch Trap] deals more damage",
+                  "value": "14%"
+                }
+              ],
+              "4": [
+                {
+                  "key": "[Glitch Trap] deals more damage",
+                  "value": "21%"
+                }
+              ],
+              "5": [
+                {
+                  "key": "[Glitch Trap] deals more damage",
+                  "value": "28%"
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "0x0100000D00008B16": {
+        "id": "0x0100000D00008B16",
+        "type": "Hub",
+        "pointsToUnlock": 0,
+        "nextHubNode": "0x0100000D00006C8F",
+        "children": [
+          "0x0100000D00008B1B"
+        ]
+      },
+      "0x0100000D00008B1B": {
+        "id": "0x0100000D00008B1B",
+        "type": "DefaultSkills",
+        "parent": "0x0100000D00008B16",
+        "skills": [
+          {
+            "id": "0x010000120000427F",
+            "name": "Dash",
+            "description": "Quickly rush in the desired direction.\r\n",
+            "slot": "dash",
+            "maxLevel": 1,
+            "levelDescriptions": {
+              "1": []
+            }
+          },
+          {
+            "id": "0x01000025000009CC",
+            "name": "Unarmed attack",
+            "description": "Attack with bare fists.\r\n",
+            "slot": "primary",
+            "maxLevel": 1,
+            "levelDescriptions": {
+              "1": []
+            }
+          },
+          {
+            "id": "0x010000120000418D",
+            "name": "Breach",
+            "description": "After a short delay, deal damage and apply [Cracked] to all enemies around you, lowering their defences by [15%].\r\n",
+            "slot": "utility",
+            "maxLevel": 1,
+            "levelDescriptions": {
+              "1": []
+            }
+          }
+        ]
+      },
+      "0x01000012000035F7": {
+        "id": "0x01000012000035F7",
+        "type": "ChooseAnySkills",
+        "parent": "0x0100000D00006CC2",
+        "skills": [
+          {
+            "id": "0x0100000D00010295",
+            "name": "Insatiable",
+            "description": "[Binary regeration] increased [5/10/15%].",
+            "slot": "none",
+            "maxLevel": 3,
+            "levelDescriptions": {
+              "1": [
+                {
+                  "key": "[Binary regeration] increased.",
+                  "value": "5%"
+                }
+              ],
+              "2": [
+                {
+                  "key": "[Binary regeration] increased.",
+                  "value": "10%"
+                }
+              ],
+              "3": [
+                {
+                  "key": "[Binary regeration] increased.",
+                  "value": "15%"
+                }
+              ]
+            }
+          },
+          {
+            "id": "0x010000120000421E",
+            "name": "Lasting Effects",
+            "description": "Primary attacks have a [10/20/40%] chance to apply [Exposed], lowering the enemy's physical and pixel defences by [50%].",
+            "slot": "none",
+            "maxLevel": 3,
+            "levelDescriptions": {
+              "1": [
+                {
+                  "key": "Primary attacks have a chance to apply [Exposed].",
+                  "value": "10%"
+                }
+              ],
+              "2": [
+                {
+                  "key": "Primary attacks have a chance to apply [Exposed].",
+                  "value": "20%"
+                }
+              ],
+              "3": [
+                {
+                  "key": "Primary attacks have a chance to apply [Exposed].",
+                  "value": "40%"
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "0x01000012000035FF": {
+        "id": "0x01000012000035FF",
+        "type": "ChooseAnySkills",
+        "parent": "0x0100000D00006D39",
+        "skills": [
+          {
+            "id": "0x01000012000042A7",
+            "name": "Stocked Up",
+            "description": "Increase [Max Binary] by [4/8/12].",
+            "slot": "none",
+            "maxLevel": 3,
+            "levelDescriptions": {
+              "1": [
+                {
+                  "key": "[Max Binary] increased",
+                  "value": "4%"
+                }
+              ],
+              "2": [
+                {
+                  "key": "[Max Binary] increased",
+                  "value": "8%"
+                }
+              ],
+              "3": [
+                {
+                  "key": "[Max Binary] increased",
+                  "value": "12%"
+                }
+              ]
+            }
+          },
+          {
+            "id": "0x01000012000042AE",
+            "name": "Speedrun",
+            "description": "Ability Cooldown decreased by [2/4/6%].",
+            "slot": "none",
+            "maxLevel": 3,
+            "levelDescriptions": {
+              "1": [
+                {
+                  "key": "Ability Cooldown decreased",
+                  "value": "2%"
+                }
+              ],
+              "2": [
+                {
+                  "key": "Ability Cooldown decreased",
+                  "value": "4%"
+                }
+              ],
+              "3": [
+                {
+                  "key": "Ability Cooldown decreased",
+                  "value": "6%"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  },
+  "Sentinel": {
+    "startHubId": "0x01000012000043AC",
+    "children": {
+      "0x0100001200004343": {
+        "id": "0x0100001200004343",
+        "type": "Hub",
+        "pointsToUnlock": 0,
+        "nextHubNode": "0x0100001200004352",
+        "children": [
+          "0x010000120000435C",
+          "0x0100001200004361"
+        ]
+      },
+      "0x0100001200004348": {
+        "id": "0x0100001200004348",
+        "type": "Hub",
+        "pointsToUnlock": 10,
+        "nextHubNode": "0x010000120000437F",
+        "children": [
+          "0x0100001200004366",
+          "0x01000012000043B6"
+        ]
+      },
+      "0x0100001200004352": {
+        "id": "0x0100001200004352",
+        "type": "Hub",
+        "pointsToUnlock": 5,
+        "nextHubNode": "0x0100001200004348",
+        "children": [
+          "0x0100001200004370",
+          "0x0100001200004375"
+        ]
+      },
+      "0x0100001200004357": {
+        "id": "0x0100001200004357",
+        "type": "Hub",
+        "pointsToUnlock": 20,
+        "children": [
+          "0x010000120000437A",
+          "0x01000012000043BB"
+        ]
+      },
+      "0x010000120000435C": {
+        "id": "0x010000120000435C",
+        "type": "ChooseOneSkill",
+        "parent": "0x0100001200004343",
+        "skills": [
+          {
+            "id": "0x01000012000043DC",
+            "name": "Body Pump",
+            "description": "Ability costs [10%] more, but its effectiveness is increased by [10/15/20%].",
+            "slot": "none",
+            "maxLevel": 3,
+            "levelDescriptions": {
+              "1": [
+                {
+                  "key": "Extra Damage",
+                  "value": "10%"
+                },
+                {
+                  "key": "Extra Cost",
+                  "value": "10%"
+                }
+              ],
+              "2": [
+                {
+                  "key": "Extra Damage",
+                  "value": "15%"
+                },
+                {
+                  "key": "Extra Cost",
+                  "value": "10%"
+                }
+              ],
+              "3": [
+                {
+                  "key": "Extra Damage",
+                  "value": "20%"
+                },
+                {
+                  "key": "Extra Cost",
+                  "value": "10%"
+                }
+              ]
+            }
+          },
+          {
+            "id": "0x01000012000043E3",
+            "name": "Extra Reps",
+            "description": "Gain [4/6/8%] more Bytecell generation for 5 seconds after using skill. Stacking up to 3 times.",
+            "slot": "none",
+            "maxLevel": 3,
+            "levelDescriptions": {
+              "1": [
+                {
+                  "key": "Bytecell generation increased",
+                  "value": "4%"
+                }
+              ],
+              "2": [
+                {
+                  "key": "Bytecell generation increased",
+                  "value": "6%"
+                }
+              ],
+              "3": [
+                {
+                  "key": "Bytecell generation increased",
+                  "value": "8%"
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "0x0100001200004361": {
+        "id": "0x0100001200004361",
+        "type": "ChooseOneSkill",
+        "parent": "0x0100001200004343",
+        "skills": [
+          {
+            "id": "0x01000012000043F1",
+            "name": "Bioflow",
+            "description": "Heal yourself and allies around you, activating [Muscle Overdrive] to increase your Physical Strength and Pixel Strength by [5%] for [7] seconds and stack up to 5 times.",
+            "slot": "skill1",
+            "maxLevel": 5,
+            "levelDescriptions": {
+              "1": [
+                {
+                  "key": "Unlock [Bioflow] skill",
+                  "value": ""
+                },
+                {
+                  "key": "Get [Muscle overdrive] for 7 sec.",
+                  "value": ""
+                }
+              ],
+              "2": [
+                {
+                  "key": "[Bioflow] restore more health",
+                  "value": "5%"
+                }
+              ],
+              "3": [
+                {
+                  "key": "[Bioflow] restore more health",
+                  "value": "10%"
+                }
+              ],
+              "4": [
+                {
+                  "key": "[Bioflow] restore more health",
+                  "value": "15%"
+                }
+              ],
+              "5": [
+                {
+                  "key": "[Bioflow] restore more health",
+                  "value": "20%"
+                }
+              ]
+            }
+          },
+          {
+            "id": "0x01000012000043FF",
+            "name": "Taser",
+            "description": "Fire a projectile that deals damage and applies [Electrified] to enemies, dealing damage for 5 sec. and weakening their attacks by [5%].",
+            "slot": "skill1",
+            "maxLevel": 5,
+            "levelDescriptions": {
+              "1": [
+                {
+                  "key": "Unlock [Taser] skill",
+                  "value": ""
+                },
+                {
+                  "key": "Applies [Electrified] to target for 5 sec.",
+                  "value": ""
+                }
+              ],
+              "2": [
+                {
+                  "key": "[Taser] deals more damage",
+                  "value": "5%"
+                },
+                {
+                  "key": "[Electrified] deals more damage",
+                  "value": "5%"
+                }
+              ],
+              "3": [
+                {
+                  "key": "[Taser] deals more damage",
+                  "value": "10%"
+                },
+                {
+                  "key": "[Electrified] deals more damage",
+                  "value": "10%"
+                }
+              ],
+              "4": [
+                {
+                  "key": "[Taser] deals more damage",
+                  "value": "15%"
+                },
+                {
+                  "key": "[Electrified] deals more damage",
+                  "value": "15%"
+                }
+              ],
+              "5": [
+                {
+                  "key": "[Taser] deals more damage",
+                  "value": "20%"
+                },
+                {
+                  "key": "[Electrified] deals more damage",
+                  "value": "20%"
+                }
+              ]
+            }
+          },
+          {
+            "id": "0x010000120000440D",
+            "name": "Whirlwind",
+            "description": "Deal damage to all enemies around you, generating three times as much aggro.",
+            "slot": "skill1",
+            "maxLevel": 5,
+            "levelDescriptions": {
+              "1": [
+                {
+                  "key": "Unlock [Whirlwind] skill",
+                  "value": ""
+                }
+              ],
+              "2": [
+                {
+                  "key": "[Whirlwind] deals more damage",
+                  "value": "5%"
+                }
+              ],
+              "3": [
+                {
+                  "key": "[Whirlwind] deals more damage",
+                  "value": "10%"
+                }
+              ],
+              "4": [
+                {
+                  "key": "[Whirlwind] deals more damage",
+                  "value": "15%"
+                }
+              ],
+              "5": [
+                {
+                  "key": "[Whirlwind] deals more damage",
+                  "value": "20%"
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "0x0100001200004366": {
+        "id": "0x0100001200004366",
+        "type": "ChooseAnySkills",
+        "parent": "0x0100001200004348",
+        "skills": [
+          {
+            "id": "0x01000012000043EA",
+            "name": "Ready to Go",
+            "description": "Cooldown reduction increased by [3/4/5%].",
+            "slot": "none",
+            "maxLevel": 3,
+            "levelDescriptions": {
+              "1": [
+                {
+                  "key": "Cooldown reduction increased",
+                  "value": "3%"
+                }
+              ],
+              "2": [
+                {
+                  "key": "Cooldown reduction increased",
+                  "value": "4%"
+                }
+              ],
+              "3": [
+                {
+                  "key": "Cooldown reduction increased",
+                  "value": "5%"
+                }
+              ]
+            }
+          },
+          {
+            "id": "0x010000120000441B",
+            "name": "Peak Physique",
+            "description": "Vitality increased by [4/8/12%].",
+            "slot": "none",
+            "maxLevel": 3,
+            "levelDescriptions": {
+              "1": [
+                {
+                  "key": "Vitality increased",
+                  "value": "4%"
+                }
+              ],
+              "2": [
+                {
+                  "key": "Vitality increased",
+                  "value": "8%"
+                }
+              ],
+              "3": [
+                {
+                  "key": "Vitality increased",
+                  "value": "12%"
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "0x0100001200004370": {
+        "id": "0x0100001200004370",
+        "type": "ChooseOneSkill",
+        "parent": "0x0100001200004352",
+        "skills": [
+          {
+            "id": "0x0100001200004429",
+            "name": "Proper Posture",
+            "description": "Ability Cooldown decreased by [4/8/12%].",
+            "slot": "none",
+            "maxLevel": 3,
+            "levelDescriptions": {
+              "1": [
+                {
+                  "key": "Cooldown Decrease",
+                  "value": "4%"
+                }
+              ],
+              "2": [
+                {
+                  "key": "Cooldown Decrease",
+                  "value": "8%"
+                }
+              ],
+              "3": [
+                {
+                  "key": "Cooldown Decrease",
+                  "value": "12%"
+                }
+              ]
+            }
+          },
+          {
+            "id": "0x0100001200004430",
+            "name": "Warm-ups",
+            "description": "Activate skill generates (20/30/40) bytecell per skill level.",
+            "slot": "none",
+            "maxLevel": 3,
+            "levelDescriptions": {
+              "1": [
+                {
+                  "key": "Activate skill generates bytecell ",
+                  "value": "20"
+                }
+              ],
+              "2": [
+                {
+                  "key": "Activate skill generates bytecell ",
+                  "value": "30"
+                }
+              ],
+              "3": [
+                {
+                  "key": "Activate skill generates bytecell ",
+                  "value": "40"
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "0x0100001200004375": {
+        "id": "0x0100001200004375",
+        "type": "ChooseOneSkill",
+        "parent": "0x0100001200004352",
+        "skills": [
+          {
+            "id": "0x0100001200004437",
+            "name": "Bio Aura",
+            "description": "Emit an aura that applies [Bio Boost] to self and nearby allies, increasing Moving Speed by 30% and healing.",
+            "slot": "skill2",
+            "maxLevel": 5,
+            "levelDescriptions": {
+              "1": [
+                {
+                  "key": "Unlock [Bio Aura] skill",
+                  "value": ""
+                },
+                {
+                  "key": "Applies [Bio Boost] to self and nearby allies for 4 sec.",
+                  "value": ""
+                }
+              ],
+              "2": [
+                {
+                  "key": "[Bio Boost] restore more health per second",
+                  "value": "6%"
+                }
+              ],
+              "3": [
+                {
+                  "key": "[Bio Boost] restore more health per second",
+                  "value": "12%"
+                }
+              ],
+              "4": [
+                {
+                  "key": "[Bio Boost] restore more health per second",
+                  "value": "18%"
+                }
+              ],
+              "5": [
+                {
+                  "key": "[Bio Boost] restore more health per second",
+                  "value": "24%"
+                }
+              ]
+            }
+          },
+          {
+            "id": "0x010000120000443E",
+            "name": "Counter-Strike",
+            "description": "Reduce all incoming damage at the cost of Moving Speed, activating [Iron Wall]. \nUse the ability a second time to activate [Retaliation], boosting your Weapon Damage.",
+            "slot": "skill2",
+            "maxLevel": 5,
+            "levelDescriptions": {
+              "1": [
+                {
+                  "key": "Unlock [Counter-Strike] skill",
+                  "value": ""
+                },
+                {
+                  "key": "Get [Iron Wall]  for 4 sec.",
+                  "value": "All incoming damage is reduced by 40%, Movement speed decreased by 75%."
+                },
+                {
+                  "key": "Get [Retaliation] for 5 sec.",
+                  "value": "Increase weapon damage by 12%"
+                }
+              ],
+              "2": [
+                {
+                  "key": "[Iron Wall] improved",
+                  "value": "All incoming damage is reduced by 42%"
+                },
+                {
+                  "key": "[Retaliation] improved",
+                  "value": "Increase weapon damage by 14%"
+                }
+              ],
+              "3": [
+                {
+                  "key": "[Iron Wall] improved",
+                  "value": "All incoming damage is reduced by 44%"
+                },
+                {
+                  "key": "[Retaliation] improved",
+                  "value": "Increase weapon damage by 16%"
+                }
+              ],
+              "4": [
+                {
+                  "key": "[Iron Wall] improved",
+                  "value": "All incoming damage is reduced by 46%"
+                },
+                {
+                  "key": "[Retaliation] improved",
+                  "value": "Increase weapon damage by 18%"
+                }
+              ],
+              "5": [
+                {
+                  "key": "[Iron Wall] improved",
+                  "value": "All incoming damage is reduced by 48%"
+                },
+                {
+                  "key": "[Retaliation] improved",
+                  "value": "Increase weapon damage by 20%"
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "0x010000120000437A": {
+        "id": "0x010000120000437A",
+        "type": "ChooseAnySkills",
+        "parent": "0x0100001200004357",
+        "skills": [
+          {
+            "id": "0x010000120000444C",
+            "name": "Unyielding",
+            "description": "When below 35% Health, get [10/15/20%] Pixel and Physical Defense, and a [5/10/15%] Healing modifier.",
+            "slot": "none",
+            "maxLevel": 3,
+            "levelDescriptions": {
+              "1": [
+                {
+                  "key": "When below 35% Health Pixel and Physical Defense increased",
+                  "value": "10%"
+                },
+                {
+                  "key": "When below 35% Health Healing modifier increased",
+                  "value": "5%"
+                }
+              ],
+              "2": [
+                {
+                  "key": "When below 35% Health Pixel and Physical Defense increased",
+                  "value": "15%"
+                },
+                {
+                  "key": "When below 35% Health Healing modifier increased",
+                  "value": "10%"
+                }
+              ],
+              "3": [
+                {
+                  "key": "When below 35% Health Pixel and Physical Defense increased",
+                  "value": "20%"
+                },
+                {
+                  "key": "When below 35% Health Healing modifier increased",
+                  "value": "15%"
+                }
+              ]
+            }
+          },
+          {
+            "id": "0x0100001200004453",
+            "name": "Charging Up",
+            "description": "Gain extra [10/15/20% Bytecell] on hit.",
+            "slot": "none",
+            "maxLevel": 3,
+            "levelDescriptions": {
+              "1": [
+                {
+                  "key": "Gain extra [Bytecell] on hit",
+                  "value": "10%"
+                }
+              ],
+              "2": [
+                {
+                  "key": "Gain extra [Bytecell] on hit",
+                  "value": "15%"
+                }
+              ],
+              "3": [
+                {
+                  "key": "Gain extra [Bytecell] on hit",
+                  "value": "20%"
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "0x010000120000437F": {
+        "id": "0x010000120000437F",
+        "type": "Hub",
+        "pointsToUnlock": 15,
+        "nextHubNode": "0x0100001200004357",
+        "children": [
+          "0x0100001200004384",
+          "0x0100001200004389"
+        ]
+      },
+      "0x0100001200004384": {
+        "id": "0x0100001200004384",
+        "type": "ChooseOneSkill",
+        "parent": "0x010000120000437F",
+        "skills": [
+          {
+            "id": "0x0100001200004468",
+            "name": "Heavy Lifting",
+            "description": "Ability deals [4/6/8%] more damage.",
+            "slot": "none",
+            "maxLevel": 3,
+            "levelDescriptions": {
+              "1": [
+                {
+                  "key": "Ability deals more damage",
+                  "value": "4%"
+                }
+              ],
+              "2": [
+                {
+                  "key": "Ability deals more damage",
+                  "value": "6%"
+                }
+              ],
+              "3": [
+                {
+                  "key": "Ability deals more damage",
+                  "value": "8%"
+                }
+              ]
+            }
+          },
+          {
+            "id": "0x010000120000446F",
+            "name": "Boss of the Gym",
+            "description": "Reduces ability cooldowns by [10/20/30%] and inflicts [Weak] on enemies, lowering their damage dealt by [30%].",
+            "slot": "none",
+            "maxLevel": 3,
+            "levelDescriptions": {
+              "1": [
+                {
+                  "key": "Abilities cooldowns reduced.",
+                  "value": "10%"
+                }
+              ],
+              "2": [
+                {
+                  "key": "Abilities cooldowns reduced.",
+                  "value": "20%"
+                }
+              ],
+              "3": [
+                {
+                  "key": "Abilities cooldowns reduced.",
+                  "value": "30%"
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "0x0100001200004389": {
+        "id": "0x0100001200004389",
+        "type": "ChooseOneSkill",
+        "parent": "0x010000120000437F",
+        "skills": [
+          {
+            "id": "0x0100001200004476",
+            "name": "Mindsplitter Grenade",
+            "description": "Throw a grenade that unleashes a wave of psychic energy around target, dealing damage and [taunting] all enemies.",
+            "slot": "skill3",
+            "maxLevel": 5,
+            "levelDescriptions": {
+              "1": [
+                {
+                  "key": "Unlock [Mindsplitter Grenade] skill",
+                  "value": ""
+                }
+              ],
+              "2": [
+                {
+                  "key": "[Mindsplitter Grenade] deals more damage",
+                  "value": "7%"
+                }
+              ],
+              "3": [
+                {
+                  "key": "[Mindsplitter Grenade] deals more damage",
+                  "value": "14%"
+                }
+              ],
+              "4": [
+                {
+                  "key": "[Mindsplitter Grenade] deals more damage",
+                  "value": "21%"
+                }
+              ],
+              "5": [
+                {
+                  "key": "[Mindsplitter Grenade] deals more damage",
+                  "value": "28%"
+                }
+              ]
+            }
+          },
+          {
+            "id": "0x010000120000447D",
+            "name": "Electric Surge",
+            "description": "Strike in front of you to deal damage and apply [Stun] to enemies.",
+            "slot": "skill3",
+            "maxLevel": 5,
+            "levelDescriptions": {
+              "1": [
+                {
+                  "key": "Unlock [Electric Surge] skill",
+                  "value": ""
+                },
+                {
+                  "key": "Applies [Stun] to target for 2 sec.",
+                  "value": ""
+                }
+              ],
+              "2": [
+                {
+                  "key": "[Electric Surge] deals more damage",
+                  "value": "7%"
+                }
+              ],
+              "3": [
+                {
+                  "key": "[Electric Surge] deals more damage",
+                  "value": "14%"
+                }
+              ],
+              "4": [
+                {
+                  "key": "[Electric Surge] deals more damage",
+                  "value": "21%"
+                }
+              ],
+              "5": [
+                {
+                  "key": "[Electric Surge] deals more damage",
+                  "value": "28%"
+                }
+              ]
+            }
+          },
+          {
+            "id": "0x0100001200004484",
+            "name": "Reaping",
+            "description": "Deal damage in an area cone attack, activate [Biomass Build-Up] to increase Max Health by [5%] for each enemy hit.",
+            "slot": "skill3",
+            "maxLevel": 5,
+            "levelDescriptions": {
+              "1": [
+                {
+                  "key": "Unlock [Reaping] skill",
+                  "value": ""
+                },
+                {
+                  "key": "Get stack of [Biomass Build-Up] per enemy hit for 8 sec.",
+                  "value": ""
+                }
+              ],
+              "2": [
+                {
+                  "key": "[Reaping] deals more damage",
+                  "value": "7%"
+                }
+              ],
+              "3": [
+                {
+                  "key": "[Reaping] deals more damage",
+                  "value": "14%"
+                }
+              ],
+              "4": [
+                {
+                  "key": "[Reaping] deals more damage",
+                  "value": "21%"
+                }
+              ],
+              "5": [
+                {
+                  "key": "[Reaping] deals more damage",
+                  "value": "28%"
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "0x01000012000043AC": {
+        "id": "0x01000012000043AC",
+        "type": "Hub",
+        "pointsToUnlock": 0,
+        "nextHubNode": "0x0100001200004343",
+        "children": [
+          "0x01000012000043B1"
+        ]
+      },
+      "0x01000012000043B1": {
+        "id": "0x01000012000043B1",
+        "type": "DefaultSkills",
+        "parent": "0x01000012000043AC",
+        "skills": [
+          {
+            "id": "0x01000025000001E6",
+            "name": "Charge",
+            "description": "Quickly rush forward, dealing damage to every enemy you collide with.",
+            "slot": "dash",
+            "maxLevel": 1,
+            "levelDescriptions": {
+              "1": []
+            }
+          },
+          {
+            "id": "0x01000025000009EF",
+            "name": "Unarmed attack",
+            "description": "Attack with bare fists.",
+            "slot": "primary",
+            "maxLevel": 1,
+            "levelDescriptions": {
+              "1": []
+            }
+          },
+          {
+            "id": "0x01000012000043CE",
+            "name": "Bitshield",
+            "description": "Upon casting, apply [Shield] to self and nearest allies and become [immune] to the next attack.",
+            "slot": "utility",
+            "maxLevel": 1,
+            "levelDescriptions": {
+              "1": []
+            }
+          }
+        ]
+      },
+      "0x01000012000043B6": {
+        "id": "0x01000012000043B6",
+        "type": "ChooseAnySkills",
+        "parent": "0x0100001200004348",
+        "skills": [
+          {
+            "id": "0x01000012000044D1",
+            "name": "Intimidation",
+            "description": "Your primary attacks have a [4/8/12%] chance to apply [Weak] to enemies, reducing their damage by [30%].",
+            "slot": "none",
+            "maxLevel": 3,
+            "levelDescriptions": {
+              "1": [
+                {
+                  "key": "Primary attacks have a chance to apply [Weak]",
+                  "value": "4%"
+                }
+              ],
+              "2": [
+                {
+                  "key": "Primary attacks have a chance to apply [Weak]",
+                  "value": "8%"
+                }
+              ],
+              "3": [
+                {
+                  "key": "Primary attacks have a chance to apply [Weak]",
+                  "value": "12%"
+                }
+              ]
+            }
+          },
+          {
+            "id": "0x01000012000044DF",
+            "name": "Dominating",
+            "description": "When above 80% Health, get extra [5/10/15%] POWER",
+            "slot": "none",
+            "maxLevel": 3,
+            "levelDescriptions": {
+              "1": [
+                {
+                  "key": "When above 80% Health, get extra POWER",
+                  "value": "5%"
+                }
+              ],
+              "2": [
+                {
+                  "key": "When above 80% Health, get extra POWER",
+                  "value": "10%"
+                }
+              ],
+              "3": [
+                {
+                  "key": "When above 80% Health, get extra POWER",
+                  "value": "15%"
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "0x01000012000043BB": {
+        "id": "0x01000012000043BB",
+        "type": "ChooseAnySkills",
+        "parent": "0x0100001200004357",
+        "skills": [
+          {
+            "id": "0x010000120000445A",
+            "name": "Fast and Furious",
+            "description": "Increase Movement Speed by [3/6/9%].",
+            "slot": "none",
+            "maxLevel": 3,
+            "levelDescriptions": {
+              "1": [
+                {
+                  "key": "Movement Speed increased",
+                  "value": "3%"
+                }
+              ],
+              "2": [
+                {
+                  "key": "Movement Speed increased",
+                  "value": "6%"
+                }
+              ],
+              "3": [
+                {
+                  "key": "Movement Speed increased",
+                  "value": "9%"
+                }
+              ]
+            }
+          },
+          {
+            "id": "0x0100001200004461",
+            "name": "Extra Storage",
+            "description": "[Max Bytecell] increased by [3/6/9].",
+            "slot": "none",
+            "maxLevel": 3,
+            "levelDescriptions": {
+              "1": [
+                {
+                  "key": "[Max Bytecell] increased",
+                  "value": "3%"
+                }
+              ],
+              "2": [
+                {
+                  "key": "[Max Bytecell] increased",
+                  "value": "6%"
+                }
+              ],
+              "3": [
+                {
+                  "key": "[Max Bytecell] increased",
+                  "value": "9%"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  },
+  "Technomancer": {
+    "startHubId": "0x0100001200004828",
+    "children": {
+      "0x01000012000047BF": {
+        "id": "0x01000012000047BF",
+        "type": "Hub",
+        "pointsToUnlock": 0,
+        "nextHubNode": "0x01000012000047CE",
+        "children": [
+          "0x01000012000047D8",
+          "0x01000012000047DD"
+        ]
+      },
+      "0x01000012000047C4": {
+        "id": "0x01000012000047C4",
+        "type": "Hub",
+        "pointsToUnlock": 10,
+        "nextHubNode": "0x01000012000047FB",
+        "children": [
+          "0x01000012000047E2",
+          "0x0100001200004832"
+        ]
+      },
+      "0x01000012000047CE": {
+        "id": "0x01000012000047CE",
+        "type": "Hub",
+        "pointsToUnlock": 5,
+        "nextHubNode": "0x01000012000047C4",
+        "children": [
+          "0x01000012000047EC",
+          "0x01000012000047F1"
+        ]
+      },
+      "0x01000012000047D3": {
+        "id": "0x01000012000047D3",
+        "type": "Hub",
+        "pointsToUnlock": 20,
+        "children": [
+          "0x01000012000047F6",
+          "0x0100001200004837"
+        ]
+      },
+      "0x01000012000047D8": {
+        "id": "0x01000012000047D8",
+        "type": "ChooseOneSkill",
+        "parent": "0x01000012000047BF",
+        "skills": [
+          {
+            "id": "0x0100001200004848",
+            "name": "Pixel Infusion",
+            "description": "Damage and Healing increased by 10/15/20%.",
+            "slot": "none",
+            "maxLevel": 3,
+            "levelDescriptions": {
+              "1": [
+                {
+                  "key": "Extra value",
+                  "value": "10%"
+                }
+              ],
+              "2": [
+                {
+                  "key": "Extra value",
+                  "value": "15%"
+                }
+              ],
+              "3": [
+                {
+                  "key": "Extra value",
+                  "value": "20%"
+                }
+              ]
+            }
+          },
+          {
+            "id": "0x010000120000484E",
+            "name": "Resonance Drain",
+            "description": "Activate [Reaping] for [4] seconds to boost your Pixel Strength.\r\n",
+            "slot": "none",
+            "maxLevel": 3,
+            "levelDescriptions": {
+              "1": [
+                {
+                  "key": "Reaping Pixel Strength bonus",
+                  "value": "5%"
+                }
+              ],
+              "2": [
+                {
+                  "key": "Reaping Pixel Strength bonus",
+                  "value": "10%"
+                }
+              ],
+              "3": [
+                {
+                  "key": "Reaping Pixel Strength bonus",
+                  "value": "15%"
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "0x01000012000047DD": {
+        "id": "0x01000012000047DD",
+        "type": "ChooseOneSkill",
+        "parent": "0x01000012000047BF",
+        "skills": [
+          {
+            "id": "0x010000120000485A",
+            "name": "Photon Torpedo",
+            "description": "Fire three projectiles that converge in the target location, applying [Burn] and [Shock] to all enemies they come in contact with, damaging them over time and lowering their Pixel Defence by [5%].",
+            "slot": "skill1",
+            "maxLevel": 5,
+            "levelDescriptions": {
+              "1": [
+                {
+                  "key": "Unlock [Photon Torpedo] skill",
+                  "value": ""
+                },
+                {
+                  "key": "Applies [Burn] to target for 3 sec.",
+                  "value": ""
+                },
+                {
+                  "key": "Applies [Shock] to target for 3 sec.",
+                  "value": ""
+                }
+              ],
+              "2": [
+                {
+                  "key": "[Photon Torpedo] deals more damage",
+                  "value": "5%"
+                },
+                {
+                  "key": "[Burn] deals more damage",
+                  "value": "5%"
+                }
+              ],
+              "3": [
+                {
+                  "key": "[Photon Torpedo] deals more damage",
+                  "value": "10%"
+                },
+                {
+                  "key": "[Burn] deals more damage",
+                  "value": "10%"
+                }
+              ],
+              "4": [
+                {
+                  "key": "[Photon Torpedo] deals more damage",
+                  "value": "15%"
+                },
+                {
+                  "key": "[Burn] deals more damage",
+                  "value": "15%"
+                }
+              ],
+              "5": [
+                {
+                  "key": "[Photon Torpedo] deals more damage",
+                  "value": "20%"
+                },
+                {
+                  "key": "[Burn] deals more damage",
+                  "value": "20%"
+                }
+              ]
+            }
+          },
+          {
+            "id": "0x0100001200004860",
+            "name": "Pixel beam",
+            "description": "Fire a piercing beam that will damage all enemies in its way.",
+            "slot": "skill1",
+            "maxLevel": 5,
+            "levelDescriptions": {
+              "1": [
+                {
+                  "key": "Unlock [Pixel beam] skill",
+                  "value": ""
+                }
+              ],
+              "2": [
+                {
+                  "key": "[Pixel beam] deals more damage",
+                  "value": "5%"
+                }
+              ],
+              "3": [
+                {
+                  "key": "[Pixel beam] deals more damage",
+                  "value": "10%"
+                }
+              ],
+              "4": [
+                {
+                  "key": "[Pixel beam] deals more damage",
+                  "value": "15%"
+                }
+              ],
+              "5": [
+                {
+                  "key": "[Pixel beam] deals more damage",
+                  "value": "20%"
+                }
+              ]
+            }
+          },
+          {
+            "id": "0x0100001200004866",
+            "name": "Reinstall",
+            "description": "Fire 5 extremely slow projectiles in a cone shape, healing allies and applying [Restoration] that restores Health every second.",
+            "slot": "skill1",
+            "maxLevel": 5,
+            "levelDescriptions": {
+              "1": [
+                {
+                  "key": "Unlock [Reinstall] skill",
+                  "value": ""
+                },
+                {
+                  "key": "Applies [Restoration] to target for 5 sec.",
+                  "value": ""
+                }
+              ],
+              "2": [
+                {
+                  "key": "[Reinstall] projectile restores more health",
+                  "value": "5%"
+                },
+                {
+                  "key": "[Restoration] restores more health",
+                  "value": "5%"
+                }
+              ],
+              "3": [
+                {
+                  "key": "[Reinstall] projectile restores more health",
+                  "value": "10%"
+                },
+                {
+                  "key": "[Restoration] restores more health",
+                  "value": "10%"
+                }
+              ],
+              "4": [
+                {
+                  "key": "[Reinstall] projectile restores more health",
+                  "value": "15%"
+                },
+                {
+                  "key": "[Restoration] restores more health",
+                  "value": "15%"
+                }
+              ],
+              "5": [
+                {
+                  "key": "[Reinstall] projectile restores more health",
+                  "value": "20%"
+                },
+                {
+                  "key": "[Restoration] restores more health",
+                  "value": "20%"
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "0x01000012000047E2": {
+        "id": "0x01000012000047E2",
+        "type": "ChooseAnySkills",
+        "parent": "0x01000012000047C4",
+        "skills": [
+          {
+            "id": "0x0100001200004854",
+            "name": "Exploitation",
+            "description": "Abilities have a [33%] chance to apply [Vulnerable] to enemies making them take [5/7/9%] extra damage.",
+            "slot": "none",
+            "maxLevel": 3,
+            "levelDescriptions": {
+              "1": [
+                {
+                  "key": "Abilities have a [33%] chance to apply [Vulnerable] to enemies making them take extra damage.",
+                  "value": "5%"
+                }
+              ],
+              "2": [
+                {
+                  "key": "Abilities have a [33%] chance to apply [Vulnerable] to enemies making them take extra damage.",
+                  "value": "7%"
+                }
+              ],
+              "3": [
+                {
+                  "key": "Abilities have a [33%] chance to apply [Vulnerable] to enemies making them take extra damage.",
+                  "value": "9%"
+                }
+              ]
+            }
+          },
+          {
+            "id": "0x010000120000486C",
+            "name": "Keen Insight",
+            "description": "PIXEL increased by [4/8/12%].",
+            "slot": "none",
+            "maxLevel": 3,
+            "levelDescriptions": {
+              "1": [
+                {
+                  "key": "Pixel increased",
+                  "value": "4%"
+                }
+              ],
+              "2": [
+                {
+                  "key": "Pixel increased",
+                  "value": "8%"
+                }
+              ],
+              "3": [
+                {
+                  "key": "Pixel increased",
+                  "value": "12%"
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "0x01000012000047EC": {
+        "id": "0x01000012000047EC",
+        "type": "ChooseOneSkill",
+        "parent": "0x01000012000047CE",
+        "skills": [
+          {
+            "id": "0x0100001200004872",
+            "name": "Cheapskate",
+            "description": "Ability cooldown decreased by [20/25/30%].",
+            "slot": "none",
+            "maxLevel": 3,
+            "levelDescriptions": {
+              "1": [
+                {
+                  "key": "Cooldown Decrease",
+                  "value": "20%"
+                }
+              ],
+              "2": [
+                {
+                  "key": "Cooldown Decrease",
+                  "value": "25%"
+                }
+              ],
+              "3": [
+                {
+                  "key": "Cooldown Decrease",
+                  "value": "30%"
+                }
+              ]
+            }
+          },
+          {
+            "id": "0x0100001200004878",
+            "name": "Hit-and-Run",
+            "description": "Upon ability use, activate [Blur] to reduce incoming damage while increasing your Movement Speed.",
+            "slot": "none",
+            "maxLevel": 3,
+            "levelDescriptions": {
+              "1": [
+                {
+                  "key": "Upon ability use take less damage, and your movement speed is increased",
+                  "value": "10%"
+                }
+              ],
+              "2": [
+                {
+                  "key": "Upon ability use take less damage, and your movement speed is increased",
+                  "value": "15%"
+                }
+              ],
+              "3": [
+                {
+                  "key": "Upon ability use take less damage, and your movement speed is increased",
+                  "value": "20%"
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "0x01000012000047F1": {
+        "id": "0x01000012000047F1",
+        "type": "ChooseOneSkill",
+        "parent": "0x01000012000047CE",
+        "skills": [
+          {
+            "id": "0x0100001200004884",
+            "name": "Stasis",
+            "description": "Enter pixel stasis to become [immune] to all damage, but [Stun] yourself for 2 sec.",
+            "slot": "skill2",
+            "maxLevel": 5,
+            "levelDescriptions": {
+              "1": [
+                {
+                  "key": "Unlock [Stasis] skill",
+                  "value": ""
+                }
+              ],
+              "2": [
+                {
+                  "key": "[Stasis] duration",
+                  "value": "2.5 sec."
+                }
+              ],
+              "3": [
+                {
+                  "key": "[Stasis] duration",
+                  "value": "3 sec."
+                }
+              ],
+              "4": [
+                {
+                  "key": "[Stasis] duration",
+                  "value": "3.5 sec."
+                }
+              ],
+              "5": [
+                {
+                  "key": "[Stasis] duration",
+                  "value": "4 sec."
+                }
+              ]
+            }
+          },
+          {
+            "id": "0x010000120000488A",
+            "name": "STOP Code",
+            "description": "Damage all enemies around you and apply [Rooted] to them for [3] seconds: they will be able to attack, but not move.",
+            "slot": "skill2",
+            "maxLevel": 5,
+            "levelDescriptions": {
+              "1": [
+                {
+                  "key": "Unlock [STOP Code] skill",
+                  "value": ""
+                },
+                {
+                  "key": "Applies [Rooted] to targets for 3 sec.",
+                  "value": ""
+                }
+              ],
+              "2": [
+                {
+                  "key": "[STOP Code] deals more damage",
+                  "value": "6%"
+                }
+              ],
+              "3": [
+                {
+                  "key": "[STOP Code] deals more damage",
+                  "value": "12%"
+                }
+              ],
+              "4": [
+                {
+                  "key": "[STOP Code] deals more damage",
+                  "value": "18%"
+                }
+              ],
+              "5": [
+                {
+                  "key": "[STOP Code] deals more damage",
+                  "value": "24%"
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "0x01000012000047F6": {
+        "id": "0x01000012000047F6",
+        "type": "ChooseAnySkills",
+        "parent": "0x01000012000047D3",
+        "skills": [
+          {
+            "id": "0x0100001200004890",
+            "name": "Reciprocate",
+            "description": "[Bitstream] regeneration increased ",
+            "slot": "none",
+            "maxLevel": 3,
+            "levelDescriptions": {
+              "1": [
+                {
+                  "key": "[Bitstream] regeneration increased",
+                  "value": "5%"
+                }
+              ],
+              "2": [
+                {
+                  "key": "[Bitstream] regeneration increased",
+                  "value": "10%"
+                }
+              ],
+              "3": [
+                {
+                  "key": "[Bitstream] regeneration increased",
+                  "value": "15%"
+                }
+              ]
+            }
+          },
+          {
+            "id": "0x0100001200004896",
+            "name": "Inconspicous",
+            "description": "Max [Bitstream] increased.",
+            "slot": "none",
+            "maxLevel": 3,
+            "levelDescriptions": {
+              "1": [
+                {
+                  "key": "Max [Bitstream] increased",
+                  "value": "6%"
+                }
+              ],
+              "2": [
+                {
+                  "key": "Max [Bitstream] increased",
+                  "value": "10%"
+                }
+              ],
+              "3": [
+                {
+                  "key": "Max [Bitstream] increased",
+                  "value": "14%"
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "0x01000012000047FB": {
+        "id": "0x01000012000047FB",
+        "type": "Hub",
+        "pointsToUnlock": 15,
+        "nextHubNode": "0x01000012000047D3",
+        "children": [
+          "0x0100001200004800",
+          "0x0100001200004805"
+        ]
+      },
+      "0x0100001200004800": {
+        "id": "0x0100001200004800",
+        "type": "ChooseOneSkill",
+        "parent": "0x01000012000047FB",
+        "skills": [
+          {
+            "id": "0x01000012000048A9",
+            "name": "Flash Code",
+            "description": "Ability cooldown decreased by [10/15/20%].",
+            "slot": "none",
+            "maxLevel": 3,
+            "levelDescriptions": {
+              "1": [
+                {
+                  "key": "Ability cooldown decreased",
+                  "value": "10%"
+                }
+              ],
+              "2": [
+                {
+                  "key": "Ability cooldown decreased",
+                  "value": "15%"
+                }
+              ],
+              "3": [
+                {
+                  "key": "Ability cooldown decreased",
+                  "value": "20%"
+                }
+              ]
+            }
+          },
+          {
+            "id": "0x01000012000048B0",
+            "name": "Nexus Surge",
+            "description": "[Voltaic Arc]'s terminal arc has its damage increased by [10/20/30%]. [Hex]'s cooldown is reduced by [10/20/30%]. [Torrent]'s final wave has its Healing increased by [20/30/40%].",
+            "slot": "none",
+            "maxLevel": 3,
+            "levelDescriptions": {
+              "1": [
+                {
+                  "key": "[Voltaic Arc]'s terminal arc damage increased",
+                  "value": "10%"
+                },
+                {
+                  "key": "[Torrent]'s final wave Healing increased",
+                  "value": "20%"
+                },
+                {
+                  "key": "[Hex]'s cooldown is reduced",
+                  "value": "10%"
+                }
+              ],
+              "2": [
+                {
+                  "key": "[Voltaic Arc]'s terminal arc damage increased",
+                  "value": "20%"
+                },
+                {
+                  "key": "[Torrent]'s final wave Healing increased",
+                  "value": "30%"
+                },
+                {
+                  "key": "[Hex]'s cooldown is reduced",
+                  "value": "20%"
+                }
+              ],
+              "3": [
+                {
+                  "key": "[Voltaic Arc]'s terminal arc damage increased",
+                  "value": "30%"
+                },
+                {
+                  "key": "[Torrent]'s final wave Healing increased",
+                  "value": "40%"
+                },
+                {
+                  "key": "[Hex]'s cooldown is reduced",
+                  "value": "30%"
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "0x0100001200004805": {
+        "id": "0x0100001200004805",
+        "type": "ChooseOneSkill",
+        "parent": "0x01000012000047FB",
+        "skills": [
+          {
+            "id": "0x01000012000048B7",
+            "name": "Voltaic Arc",
+            "description": "Chain up to three attacks, damaging all enemies in front of you with an electric whip.",
+            "slot": "skill3",
+            "maxLevel": 5,
+            "levelDescriptions": {
+              "1": [
+                {
+                  "key": "Unlock [Voltaic Arc] skill",
+                  "value": ""
+                }
+              ],
+              "2": [
+                {
+                  "key": "[Voltaic Arc] deals more damage",
+                  "value": "7%"
+                }
+              ],
+              "3": [
+                {
+                  "key": "[Voltaic Arc] deals more damage",
+                  "value": "14%"
+                }
+              ],
+              "4": [
+                {
+                  "key": "[Voltaic Arc] deals more damage",
+                  "value": "21%"
+                }
+              ],
+              "5": [
+                {
+                  "key": "[Voltaic Arc] deals more damage",
+                  "value": "28%"
+                }
+              ]
+            }
+          },
+          {
+            "id": "0x01000012000048BD",
+            "name": "Hex",
+            "description": "Draw a pixel glyph on the ground to apply [Marked] to enemies. Marked targets receive extra 6% damage.",
+            "slot": "skill3",
+            "maxLevel": 5,
+            "levelDescriptions": {
+              "1": [
+                {
+                  "key": "Unlock [Hex] skill",
+                  "value": ""
+                },
+                {
+                  "key": "Applies [Marked] to target enemies for 6 sec.",
+                  "value": ""
+                }
+              ],
+              "2": [
+                {
+                  "key": "[Marked] targets receive extra damage.",
+                  "value": "10%"
+                }
+              ],
+              "3": [
+                {
+                  "key": "[Marked] targets receive extra damage.",
+                  "value": "14%"
+                }
+              ],
+              "4": [
+                {
+                  "key": "[Marked] targets receive extra damage.",
+                  "value": "18%"
+                }
+              ],
+              "5": [
+                {
+                  "key": "[Marked] targets receive extra damage.",
+                  "value": "22%"
+                }
+              ]
+            }
+          },
+          {
+            "id": "0x01000012000048C3",
+            "name": "Torrent",
+            "description": "Chain up to three consecutive waves that each heal allies.",
+            "slot": "skill3",
+            "maxLevel": 5,
+            "levelDescriptions": {
+              "1": [
+                {
+                  "key": "Unlock [Torrent] skill",
+                  "value": ""
+                }
+              ],
+              "2": [
+                {
+                  "key": "[Torrent] restore more health",
+                  "value": "7%"
+                }
+              ],
+              "3": [
+                {
+                  "key": "[Torrent] restore more health",
+                  "value": "14%"
+                }
+              ],
+              "4": [
+                {
+                  "key": "[Torrent] restore more health",
+                  "value": "21%"
+                }
+              ],
+              "5": [
+                {
+                  "key": "[Torrent] restore more health",
+                  "value": "28%"
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "0x0100001200004828": {
+        "id": "0x0100001200004828",
+        "type": "Hub",
+        "pointsToUnlock": 0,
+        "nextHubNode": "0x01000012000047BF",
+        "children": [
+          "0x010000120000482D"
+        ]
+      },
+      "0x010000120000482D": {
+        "id": "0x010000120000482D",
+        "type": "DefaultSkills",
+        "parent": "0x0100001200004828",
+        "skills": [
+          {
+            "id": "0x010000120000487E",
+            "name": "Blink",
+            "description": "Cover a short distance quickly.",
+            "slot": "dash",
+            "maxLevel": 1,
+            "levelDescriptions": {
+              "1": []
+            }
+          },
+          {
+            "id": "0x0100002500000A13",
+            "name": "Unarmed attack",
+            "description": "Attack with bare fists.",
+            "slot": "primary",
+            "maxLevel": 1,
+            "levelDescriptions": {
+              "1": []
+            }
+          },
+          {
+            "id": "0x0100001200004842",
+            "name": "Pixelate",
+            "description": "Enchant a patch of land to apply [Pixel Edge] to self and allies, granting rapid health recovery and increasing damage by [20%].",
+            "slot": "utility",
+            "maxLevel": 1,
+            "levelDescriptions": {
+              "1": []
+            }
+          }
+        ]
+      },
+      "0x0100001200004832": {
+        "id": "0x0100001200004832",
+        "type": "ChooseAnySkills",
+        "parent": "0x01000012000047C4",
+        "skills": [
+          {
+            "id": "0x0100001200004905",
+            "name": "Benevolent",
+            "description": "When above 80% Health, Pixel Strength and Healing are increased by [10/15/20%].",
+            "slot": "none",
+            "maxLevel": 3,
+            "levelDescriptions": {
+              "1": [
+                {
+                  "key": "When above 80% Health, Pixel Strength and Healing are increased",
+                  "value": "10%"
+                }
+              ],
+              "2": [
+                {
+                  "key": "When above 80% Health, Pixel Strength and Healing are increased",
+                  "value": "15%"
+                }
+              ],
+              "3": [
+                {
+                  "key": "When above 80% Health, Pixel Strength and Healing are increased",
+                  "value": "20%"
+                }
+              ]
+            }
+          },
+          {
+            "id": "0x010000120000490B",
+            "name": "Refinement",
+            "description": "[Pixelate] healing increased by [20/25/30%].",
+            "slot": "none",
+            "maxLevel": 3,
+            "levelDescriptions": {
+              "1": [
+                {
+                  "key": "[Pixelate] healing increased",
+                  "value": "20%"
+                }
+              ],
+              "2": [
+                {
+                  "key": "[Pixelate] healing increased",
+                  "value": "25%"
+                }
+              ],
+              "3": [
+                {
+                  "key": "[Pixelate] healing increased",
+                  "value": "30%"
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "0x0100001200004837": {
+        "id": "0x0100001200004837",
+        "type": "ChooseAnySkills",
+        "parent": "0x01000012000047D3",
+        "skills": [
+          {
+            "id": "0x010000120000489C",
+            "name": "Mind Over Matter",
+            "description": "INTELLECT increased.",
+            "slot": "none",
+            "maxLevel": 3,
+            "levelDescriptions": {
+              "1": [
+                {
+                  "key": "INTELLECT increased",
+                  "value": "4%"
+                }
+              ],
+              "2": [
+                {
+                  "key": "INTELLECT increased",
+                  "value": "8%"
+                }
+              ],
+              "3": [
+                {
+                  "key": "INTELLECT increased",
+                  "value": "12%"
+                }
+              ]
+            }
+          },
+          {
+            "id": "0x01000012000048A2",
+            "name": "Confidence",
+            "description": "PIXEL DEFENSE increased.",
+            "slot": "none",
+            "maxLevel": 3,
+            "levelDescriptions": {
+              "1": [
+                {
+                  "key": "PIXEL DEFENSE increased",
+                  "value": "4%"
+                }
+              ],
+              "2": [
+                {
+                  "key": "PIXEL DEFENSE increased",
+                  "value": "8%"
+                }
+              ],
+              "3": [
+                {
+                  "key": "PIXEL DEFENSE increased",
+                  "value": "12%"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  }
+}
