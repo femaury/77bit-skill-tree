@@ -2,7 +2,7 @@ import * as HoverCard from '@radix-ui/react-hover-card';
 import { SkillNode as SkillNodeType, Skill } from '../types';
 import { useState, useEffect } from 'react';
 import { useSkill } from '../context/SkillContext';
-import { MinusIcon, LockClosedIcon } from '@radix-ui/react-icons';
+import { MinusIcon, LockClosedIcon, PlusIcon } from '@radix-ui/react-icons';
 
 interface SkillNodeProps {
   node: SkillNodeType;
@@ -139,7 +139,8 @@ export function SkillNode({ node, layout = 'vertical', isHubLocked = false }: Sk
                               border ${isSelected ? 'border-accent' : 'border-white/20'} 
                               ${(isDisabled || isHubLocked) ? 'cursor-default' : 'cursor-pointer hover:border-accent'}
                               transition-all duration-300
-                              touch-manipulation ${isDisabled ? 'opacity-50' : ''} ${isHubLocked ? 'opacity-70' : ''}`}
+                              touch-manipulation ${isDisabled ? 'opacity-50' : ''} ${isHubLocked ? 'opacity-70' : ''}
+                              select-none`}
                     onClick={(e) => handleSkillClick(skill, e, isDisabled)}
                     onContextMenu={(e) => handleSkillClick(skill, e, isDisabled)}
                     onTouchStart={(e) => {
@@ -193,16 +194,31 @@ export function SkillNode({ node, layout = 'vertical', isHubLocked = false }: Sk
                             </span>
                           )}
                         </div>
-                        {!isDefaultSkill && skillLevel > 0 && !isDisabled && !isHubLocked && (
+                        {!isDefaultSkill && !isDisabled && !isHubLocked && (
                           <div className="flex gap-2">
                             <button
-                              className="p-1 rounded bg-white/10 hover:bg-white/20"
+                              className={`p-1 rounded ${skillLevel > 0 ? 'bg-white/10 hover:bg-white/20' : 'bg-white/5 cursor-not-allowed opacity-50'}`}
                               onClick={(e) => {
                                 e.stopPropagation();
-                                removeSkillPoint(skill.id);
+                                if (skillLevel > 0) {
+                                  removeSkillPoint(skill.id);
+                                }
                               }}
+                              disabled={skillLevel === 0}
                             >
                               <MinusIcon className="h-4 w-4 text-white" />
+                            </button>
+                            <button
+                              className={`p-1 rounded ${skillLevel < skill.maxLevel && remainingPoints > 0 ? 'bg-white/10 hover:bg-white/20' : 'bg-white/5 cursor-not-allowed opacity-50'}`}
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                if (skillLevel < skill.maxLevel && remainingPoints > 0) {
+                                  addSkillPoint(skill.id);
+                                }
+                              }}
+                              disabled={skillLevel >= skill.maxLevel || remainingPoints <= 0}
+                            >
+                              <PlusIcon className="h-4 w-4 text-white" />
                             </button>
                           </div>
                         )}
