@@ -15,14 +15,14 @@ export function SkillTreeHeader({ trees, value, onValueChange }: SkillTreeHeader
   
   return (
     <div className="bg-black/30 backdrop-blur-sm rounded-xl p-4 border border-white/20 shadow-lg mb-6">
-      <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div className="flex flex-col md:flex-row items-center gap-3 w-full md:w-auto">
           <Select.Root value={String(value)} onValueChange={onValueChange}>
             <Select.Trigger
               className="inline-flex items-center justify-between rounded-lg px-6 py-2 text-sm
-                       bg-black/10 border-2 border-accent/50 w-full md:w-auto min-w-[200px]
+                       bg-black/10 border-2 border-accent/50 w-full md:w-auto min-w-[280px]
                        focus:outline-none focus:border-accent transition-colors
-                       hover:border-accent/80"
+                       hover:border-accent/80 cursor-pointer"
             >
               <Select.Value />
               <Select.Icon>
@@ -56,10 +56,10 @@ export function SkillTreeHeader({ trees, value, onValueChange }: SkillTreeHeader
           </Select.Root>
         </div>
         
-        <div className="flex items-center gap-3">
+        <div className="flex justify-between sm:justify-start items-center gap-3">
           <HoverCard.Root openDelay={200} closeDelay={100}>
             <HoverCard.Trigger asChild>
-              <button className="bg-white/10 hover:bg-white/20 rounded-full p-2 text-white transition-colors">
+              <button className="bg-white/10 hover:bg-white/20 rounded-full p-2 text-white transition-colors cursor-pointer">
                 <InfoCircledIcon className="h-5 w-5" />
               </button>
             </HoverCard.Trigger>
@@ -81,12 +81,12 @@ export function SkillTreeHeader({ trees, value, onValueChange }: SkillTreeHeader
             </HoverCard.Portal>
           </HoverCard.Root>
           
-          <div className="bg-accent/20 rounded-lg px-4 py-2 text-white font-medium">
+          <div className="bg-accent/20 rounded-lg px-4 py-2 text-white font-medium text-xs sm:text-sm">
             Level: {playerLevel}/{maxPlayerLevel}
           </div>
           
           <button 
-            className="bg-red-500/20 hover:bg-red-500/30 rounded-lg px-4 py-2 text-white font-medium flex items-center gap-2 transition-colors"
+            className="bg-red-500/20 hover:bg-red-500/30 rounded-lg px-4 py-2 text-white font-medium flex items-center gap-2 transition-colors text-xs sm:text-sm cursor-pointer"
             onClick={resetAllSkills}
           >
             <ResetIcon className="h-4 w-4" />

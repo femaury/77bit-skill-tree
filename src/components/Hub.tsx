@@ -60,16 +60,16 @@ export function Hub({ hub, allNodes }: HubProps) {
   }
 
   return (
-    <div className={`bg-black/30 backdrop-blur-sm rounded-xl p-6 border border-white/20 shadow-lg`}>
+    <div className={`bg-black/30 backdrop-blur-sm rounded-xl p-3 sm:p-6 border border-white/20 shadow-lg`}>
       
-      <div className="mb-6 flex items-center gap-3">
-        <div className={`rounded-lg px-4 py-2 text-white font-medium 
+      <div className="mb-3 sm:mb-6 flex items-center gap-3">
+        <div className={`rounded-lg px-4 py-2 text-white font-medium text-sm sm:text-base 
                         ${isLocked ? 'bg-red-500/20' : 'bg-white/10'}`}>
           Points to unlock: {hub.pointsToUnlock || 0}
         </div>
       </div>
       
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-6">
         {hub.children?.sort((a) => {
           const aNode = allNodes[a];
           return aNode.skills?.[0].slot === "none" ? 1 : -1;

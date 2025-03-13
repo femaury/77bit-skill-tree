@@ -18,9 +18,9 @@ function AppContent() {
   };
 
   return (
-    <div className="min-h-screen bg-white/10 p-8">
+    <div className="min-h-screen bg-white/10 p-4 sm:p-8">
       <div className="max-w-6xl mx-auto">
-        <h1 className="text-4xl font-black mb-8 text-center text-accent">
+        <h1 className="text-xl sm:text-4xl font-black mb-4 sm:mb-8 text-center text-accent">
           77-Bit Skill Trees
         </h1>
         

@@ -21,7 +21,7 @@ export function SkillTree({ tree }: SkillTreeProps) {
     .sort((a, b) => (a[1].pointsToUnlock || 0) - (b[1].pointsToUnlock || 0)) as [string, SkillNode][];
 
   return (
-    <div className="flex flex-col gap-8">
+    <div className="flex flex-col gap-4 sm:gap-8">
       {/* Display starting hub first */}
       {startingHub && (
         <Hub 

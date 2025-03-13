@@ -106,7 +106,7 @@ export function SkillNode({ node, layout = 'vertical', isHubLocked = false }: Sk
   return (
     <div className="relative">
       <div 
-        className={`bg-gradient-to-br ${getTypeColor(node.type)} rounded-lg p-4
+        className={`bg-gradient-to-br ${getTypeColor(node.type)} rounded-lg p-2 sm:p-4
                    border border-white/20 transition-all duration-300
                    hover:border-white/40`}
       >
