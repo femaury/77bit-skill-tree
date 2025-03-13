@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, ReactNode } from 'react';
-import { Skill } from '../types';
+import { SkillTreeData } from '../types';
 
 interface SkillPoints {
   [skillId: string]: number;
@@ -18,6 +18,7 @@ interface SkillContextType {
   selectSkillInNode: (nodeId: string, skillId: string) => void;
   isSkillDisabled: (nodeId: string, skillId: string) => boolean;
   resetAllSkills: () => void;
+  removeSkillPointsForHub: (hubChildNodeIds: string[], allNodes: SkillTreeData['children']) => void;
 }
 
 const SkillContext = createContext<SkillContextType | undefined>(undefined);
@@ -116,6 +117,50 @@ export function SkillProvider({ children }: { children: ReactNode }) {
     setSelectedSkillsInNodes({});
   };
 
+  // Function to remove all skill points from skills in a locked hub
+  const removeSkillPointsForHub = (hubChildNodeIds: string[], allNodes: SkillTreeData['children']) => {
+    // Create a set of all skill IDs in this hub
+    const skillIdsInHub = new Set<string>();
+    
+    // Collect all skill IDs from the hub's child nodes
+    hubChildNodeIds.forEach(nodeId => {
+      const node = allNodes[nodeId];
+      if (node && node.skills) {
+        node.skills.forEach((skill) => {
+          skillIdsInHub.add(skill.id);
+        });
+      }
+    });
+    
+    // Remove points from all skills in this hub
+    setSkillPoints(prev => {
+      const newPoints = { ...prev };
+      
+      // Remove points for each skill in the hub
+      skillIdsInHub.forEach(skillId => {
+        if (skillId in newPoints) {
+          delete newPoints[skillId];
+        }
+      });
+      
+      return newPoints;
+    });
+    
+    // Remove selected skills in nodes for this hub
+    setSelectedSkillsInNodes(prev => {
+      const newSelected = { ...prev };
+      
+      // Remove selections for each node in the hub
+      hubChildNodeIds.forEach(nodeId => {
+        if (nodeId in newSelected) {
+          delete newSelected[nodeId];
+        }
+      });
+      
+      return newSelected;
+    });
+  };
+
   return (
     <SkillContext.Provider
       value={{
@@ -130,7 +175,8 @@ export function SkillProvider({ children }: { children: ReactNode }) {
         selectedSkillsInNodes,
         selectSkillInNode,
         isSkillDisabled,
-        resetAllSkills
+        resetAllSkills,
+        removeSkillPointsForHub
       }}
     >
       {children}

@@ -1,7 +1,7 @@
 import { SkillNode as SkillNodeComponent } from './SkillNode';
 import { SkillNode, SkillTreeData } from '../types';
 import { useSkill } from '../context/SkillContext';
-import { LockClosedIcon } from '@radix-ui/react-icons';
+import { useEffect, useRef } from 'react';
 
 interface HubProps {
   hub: SkillNode;
@@ -9,13 +9,37 @@ interface HubProps {
 }
 
 export function Hub({ hub, allNodes }: HubProps) {
-  const { totalSpentPoints } = useSkill();
+  const { totalSpentPoints, removeSkillPointsForHub } = useSkill();
   const isDefaultSkills = hub.children?.some(childId => 
     allNodes[childId]?.type === 'DefaultSkills'
   );
 
   // Check if this hub is locked based on points to unlock
   const isLocked = hub.pointsToUnlock !== undefined && totalSpentPoints < hub.pointsToUnlock;
+  
+  // Keep track of previous locked state to detect changes
+  const prevLockedRef = useRef(isLocked);
+  // Track if this is the first render
+  const didInitializeRef = useRef(false);
+  
+  // When a hub becomes locked, remove all skill points from its skills
+  useEffect(() => {
+    // Skip the first render to avoid false positives
+    if (!didInitializeRef.current) {
+      didInitializeRef.current = true;
+      prevLockedRef.current = isLocked;
+      return;
+    }
+    
+    // If the hub was previously unlocked and is now locked
+    if (!prevLockedRef.current && isLocked && hub.children) {
+      // Remove all skill points from this hub's skills
+      removeSkillPointsForHub(hub.children, allNodes);
+    }
+    
+    // Update the previous locked state
+    prevLockedRef.current = isLocked;
+  }, [isLocked, hub.children, allNodes, removeSkillPointsForHub]);
 
   if (isDefaultSkills) {
     return (
