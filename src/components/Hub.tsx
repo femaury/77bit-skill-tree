@@ -1,5 +1,6 @@
 import { SkillNode as SkillNodeComponent } from './SkillNode';
 import { SkillNode, SkillTreeData } from '../types';
+import { useSkill } from '../context/SkillContext';
 
 interface HubProps {
   hub: SkillNode;
@@ -7,9 +8,13 @@ interface HubProps {
 }
 
 export function Hub({ hub, allNodes }: HubProps) {
+  const { totalSpentPoints } = useSkill();
   const isDefaultSkills = hub.children?.some(childId => 
     allNodes[childId]?.type === 'DefaultSkills'
   );
+
+  // Check if this hub is locked based on points to unlock
+  const isLocked = hub.pointsToUnlock !== undefined && totalSpentPoints < hub.pointsToUnlock;
 
   if (isDefaultSkills) {
     return (
@@ -29,10 +34,12 @@ export function Hub({ hub, allNodes }: HubProps) {
   }
 
   return (
-    <div className="bg-black/30 backdrop-blur-sm rounded-xl p-6 border border-white/20 shadow-lg">
+    <div className={`bg-black/30 backdrop-blur-sm rounded-xl p-6 border border-white/20 shadow-lg 
+                    ${isLocked ? 'opacity-50 pointer-events-none' : ''}`}>
       <div className="mb-6 flex items-center gap-3">
-        <div className="bg-white/10 rounded-lg px-4 py-2 text-white font-medium">
-          Points to unlock: {hub.pointsToUnlock || 0}
+        <div className={`rounded-lg px-4 py-2 text-white font-medium 
+                        ${isLocked ? 'bg-red-500/20' : 'bg-white/10'}`}>
+          {isLocked ? 'Locked - ' : ''}Points to unlock: {hub.pointsToUnlock || 0}
         </div>
       </div>
       
