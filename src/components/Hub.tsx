@@ -1,6 +1,7 @@
 import { SkillNode as SkillNodeComponent } from './SkillNode';
 import { SkillNode, SkillTreeData } from '../types';
 import { useSkill } from '../context/SkillContext';
+import { LockClosedIcon } from '@radix-ui/react-icons';
 
 interface HubProps {
   hub: SkillNode;
@@ -26,6 +27,7 @@ export function Hub({ hub, allNodes }: HubProps) {
               key={childId}
               node={childNode}
               layout="horizontal"
+              isHubLocked={isLocked}
             />
           );
         })}
@@ -34,12 +36,12 @@ export function Hub({ hub, allNodes }: HubProps) {
   }
 
   return (
-    <div className={`bg-black/30 backdrop-blur-sm rounded-xl p-6 border border-white/20 shadow-lg 
-                    ${isLocked ? 'opacity-50 pointer-events-none' : ''}`}>
+    <div className={`bg-black/30 backdrop-blur-sm rounded-xl p-6 border border-white/20 shadow-lg`}>
+      
       <div className="mb-6 flex items-center gap-3">
         <div className={`rounded-lg px-4 py-2 text-white font-medium 
                         ${isLocked ? 'bg-red-500/20' : 'bg-white/10'}`}>
-          {isLocked ? 'Locked - ' : ''}Points to unlock: {hub.pointsToUnlock || 0}
+          Points to unlock: {hub.pointsToUnlock || 0}
         </div>
       </div>
       
@@ -53,6 +55,7 @@ export function Hub({ hub, allNodes }: HubProps) {
             <SkillNodeComponent 
               key={childId}
               node={childNode}
+              isHubLocked={isLocked}
             />
           );
         })}

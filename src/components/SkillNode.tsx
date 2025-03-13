@@ -2,14 +2,15 @@ import * as HoverCard from '@radix-ui/react-hover-card';
 import { SkillNode as SkillNodeType, Skill } from '../types';
 import { useState, useEffect } from 'react';
 import { useSkill } from '../context/SkillContext';
-import { MinusIcon } from '@radix-ui/react-icons';
+import { MinusIcon, LockClosedIcon } from '@radix-ui/react-icons';
 
 interface SkillNodeProps {
   node: SkillNodeType;
   layout?: 'vertical' | 'horizontal';
+  isHubLocked?: boolean;
 }
 
-export function SkillNode({ node, layout = 'vertical' }: SkillNodeProps) {
+export function SkillNode({ node, layout = 'vertical', isHubLocked = false }: SkillNodeProps) {
   const [openSkillId, setOpenSkillId] = useState<string | null>(null);
   const [isMobile, setIsMobile] = useState(false);
   const { 
@@ -53,7 +54,13 @@ export function SkillNode({ node, layout = 'vertical' }: SkillNodeProps) {
     return layout === 'vertical' ? 'right' : 'bottom';
   };
 
-  const handleSkillClick = (skill: Skill, e: React.MouseEvent) => {
+  const handleSkillClick = (skill: Skill, e: React.MouseEvent, isDisabled: boolean) => {
+    // If the hub is locked or the skill is disabled, just open/close the hover card
+    if (isHubLocked || isDisabled) {
+      setOpenSkillId(openSkillId === skill.id ? null : skill.id);
+      return;
+    }
+    
     // Don't add points to default skills
     if (isDefaultSkill) {
       setOpenSkillId(openSkillId === skill.id ? null : skill.id);
@@ -129,11 +136,12 @@ export function SkillNode({ node, layout = 'vertical' }: SkillNodeProps) {
                 <HoverCard.Trigger asChild>
                   <div 
                     className={`bg-black/50 backdrop-blur-sm rounded-lg p-3 
-                              border ${isSelected ? 'border-accent' : 'border-white/20'} cursor-pointer
-                              hover:border-accent transition-all duration-300
-                              touch-manipulation ${isDisabled ? 'opacity-50 pointer-events-none' : ''}`}
-                    onClick={(e) => handleSkillClick(skill, e)}
-                    onContextMenu={(e) => handleSkillClick(skill, e)}
+                              border ${isSelected ? 'border-accent' : 'border-white/20'} 
+                              ${(isDisabled || isHubLocked) ? 'cursor-default' : 'cursor-pointer hover:border-accent'}
+                              transition-all duration-300
+                              touch-manipulation ${isDisabled ? 'opacity-50' : ''} ${isHubLocked ? 'opacity-70' : ''}`}
+                    onClick={(e) => handleSkillClick(skill, e, isDisabled)}
+                    onContextMenu={(e) => handleSkillClick(skill, e, isDisabled)}
                     onTouchStart={(e) => {
                       e.preventDefault();
                       setOpenSkillId(skill.id);
@@ -151,6 +159,16 @@ export function SkillNode({ node, layout = 'vertical' }: SkillNodeProps) {
                       )}
                     </div>
                     <div className="text-sm text-white/60 mt-1">{skill.slot === "none" ? "Passive" : "Active"}</div>
+                    {isDisabled && !isHubLocked && (
+                      <div className="absolute inset-0 flex items-center justify-center bg-black/40 rounded-lg border border-red-400/30">
+                        <LockClosedIcon className="h-6 w-6 text-red-400/80" />
+                      </div>
+                    )}
+                    {isHubLocked && (
+                      <div className="absolute inset-0 flex items-center justify-center bg-black/30 rounded-lg">
+                        <LockClosedIcon className="h-6 w-6 text-white/60" />
+                      </div>
+                    )}
                   </div>
                 </HoverCard.Trigger>
 
@@ -175,7 +193,7 @@ export function SkillNode({ node, layout = 'vertical' }: SkillNodeProps) {
                             </span>
                           )}
                         </div>
-                        {!isDefaultSkill && skillLevel > 0 && (
+                        {!isDefaultSkill && skillLevel > 0 && !isDisabled && !isHubLocked && (
                           <div className="flex gap-2">
                             <button
                               className="p-1 rounded bg-white/10 hover:bg-white/20"
@@ -189,6 +207,20 @@ export function SkillNode({ node, layout = 'vertical' }: SkillNodeProps) {
                           </div>
                         )}
                       </div>
+                      
+                      {isHubLocked && (
+                        <div className="text-xs mt-1">
+                          <span className="text-red-400">Locked:</span>
+                          <span className="text-white/70"> Spend more skill points to unlock.</span>
+                        </div>
+                      )}
+                      
+                      {isDisabled && !isHubLocked && (
+                        <div className="text-xs mt-1">
+                          <span className="text-red-400">Locked:</span>
+                          <span className="text-white/70"> Another skill in this group is already selected.</span>
+                        </div>
+                      )}
                       
                       {skill.maxLevel > 1 && !isDefaultSkill && (
                         <div className="flex flex-col gap-2 mt-4">
