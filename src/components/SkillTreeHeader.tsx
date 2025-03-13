@@ -74,7 +74,7 @@ export function SkillTreeHeader({ trees, value, onValueChange }: SkillTreeHeader
                 <div className="text-sm text-white/80 space-y-2">
                   <p>Each skill point spent increases your level. Default skills don't count toward your level.</p>
                   <p>Left-click on skills to add points, right-click to remove points.</p>
-                  <p>For "Choose One Skill" nodes, you must select one skill before adding points.</p>
+                  <p>For "Choose One Skill" nodes, you can only select one skill to level up. Remove all points from a skill to select another.</p>
                 </div>
                 <HoverCard.Arrow className="fill-accent/70" />
               </HoverCard.Content>
