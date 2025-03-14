@@ -39,6 +39,64 @@ interface SkillContextType {
 
 const SkillContext = createContext<SkillContextType | undefined>(undefined);
 
+// Helper function to encode skill points in a more compact format
+const encodeSkillPoints = (skillPoints: SkillPoints): string => {
+  // Filter out skills with 0 points
+  const activeSkills = Object.entries(skillPoints).filter(([_, points]) => points > 0);
+  
+  if (activeSkills.length === 0) return '';
+  
+  // Sort by skill ID to ensure consistent encoding
+  activeSkills.sort((a, b) => a[0].localeCompare(b[0]));
+  
+  // Create an ultra-compact string representation: skillId=points,skillId=points,...
+  // Using = instead of : as it's more compression-friendly
+  return activeSkills.map(([id, points]) => `${id}=${points}`).join(',');
+};
+
+// Helper function to decode the compact skill points format
+const decodeSkillPoints = (encoded: string): SkillPoints => {
+  if (!encoded) return {};
+  
+  const result: SkillPoints = {};
+  encoded.split(',').forEach(pair => {
+    const [id, pointsStr] = pair.split('=');
+    const points = parseInt(pointsStr, 10);
+    if (!isNaN(points) && points > 0) {
+      result[id] = points;
+    }
+  });
+  
+  return result;
+};
+
+// Helper function to encode selected skills in nodes
+const encodeSelectedSkills = (selectedSkills: Record<string, string>): string => {
+  const entries = Object.entries(selectedSkills);
+  if (entries.length === 0) return '';
+  
+  // Sort by node ID for consistency
+  entries.sort((a, b) => a[0].localeCompare(b[0]));
+  
+  // Create an ultra-compact string: nodeId=skillId,nodeId=skillId,...
+  return entries.map(([nodeId, skillId]) => `${nodeId}=${skillId}`).join(',');
+};
+
+// Helper function to decode the compact selected skills format
+const decodeSelectedSkills = (encoded: string): Record<string, string> => {
+  if (!encoded) return {};
+  
+  const result: Record<string, string> = {};
+  encoded.split(',').forEach(pair => {
+    const [nodeId, skillId] = pair.split('=');
+    if (nodeId && skillId) {
+      result[nodeId] = skillId;
+    }
+  });
+  
+  return result;
+};
+
 // Helper function to decode the build from URL data
 const decodeBuild = (urlData: string): { 
   skillPoints: SkillPoints, 
@@ -50,13 +108,14 @@ const decodeBuild = (urlData: string): {
     const decompressed = LZString.decompressFromEncodedURIComponent(urlData);
     if (!decompressed) throw new Error('Failed to decompress data');
     
-    // Parse the JSON data
-    const data = JSON.parse(decompressed);
+    // Parse the compact format: className|skillPoints|selectedSkills
+    // Using | as separator as it compresses better than ~
+    const [className, skillPointsStr, selectedSkillsStr] = decompressed.split('|');
     
     return {
-      skillPoints: data.s || {},
-      selectedSkillsInNodes: data.n || {},
-      className: data.c || 'Hacker'
+      className: className || 'Hacker',
+      skillPoints: decodeSkillPoints(skillPointsStr),
+      selectedSkillsInNodes: decodeSelectedSkills(selectedSkillsStr)
     };
   } catch (error) {
     console.error('Failed to decode build data:', error);
@@ -78,7 +137,8 @@ export function SkillProvider({ children }: { children: ReactNode }) {
   // Check URL for build data on initial load
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
-    const buildData = urlParams.get('build');
+    // Only check for the new short parameter 'b'
+    const buildData = urlParams.get('b');
     
     if (buildData) {
       try {
@@ -293,14 +353,19 @@ export function SkillProvider({ children }: { children: ReactNode }) {
 
   const exportBuildToURL = () => {
     try {
-      const data = { 
-        c: currentClass, 
-        s: Object.fromEntries(Object.entries(skillPoints).filter(([_, points]) => points > 0)),
-        n: selectedSkillsInNodes 
-      };
+      // Use the ultra-compact format
+      const skillPointsStr = encodeSkillPoints(skillPoints);
+      const selectedSkillsStr = encodeSelectedSkills(selectedSkillsInNodes);
+      
+      // Format: className|skillPoints|selectedSkills
+      // Using | as separator as it compresses better than ~
+      const compactData = `${currentClass}|${skillPointsStr}|${selectedSkillsStr}`;
+      
       // Use the URL-safe compression method
-      const compressed = LZString.compressToEncodedURIComponent(JSON.stringify(data));
-      return `${window.location.origin}${window.location.pathname}?build=${compressed}`;
+      const compressed = LZString.compressToEncodedURIComponent(compactData);
+      
+      // Use a shorter parameter name 'b'
+      return `${window.location.origin}${window.location.pathname}?b=${compressed}`;
     } catch (error) {
       console.error('Failed to export build to URL:', error);
       return window.location.href;
@@ -309,17 +374,15 @@ export function SkillProvider({ children }: { children: ReactNode }) {
 
   const importBuildFromURL = (urlData: string) => {
     try {
-      const decompressed = LZString.decompressFromEncodedURIComponent(urlData);
-      if (!decompressed) throw new Error('Failed to decompress data');
+      const { skillPoints: importedSkillPoints, selectedSkillsInNodes: importedSelectedSkills, className } = decodeBuild(urlData);
       
-      const data = JSON.parse(decompressed);
       // First set the class
-      setCurrentClass(data.c || 'Hacker');
+      setCurrentClass(className);
       
       // Then set the skills
       setTimeout(() => {
-        setSkillPoints(data.s || {});
-        setSelectedSkillsInNodes(data.n || {});
+        setSkillPoints(importedSkillPoints);
+        setSelectedSkillsInNodes(importedSelectedSkills);
       }, 0);
     } catch (error) {
       console.error('Failed to import build from URL data:', error);
