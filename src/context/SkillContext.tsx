@@ -1,5 +1,6 @@
 import { createContext, useContext, useState, ReactNode, useEffect } from 'react';
 import { SkillTreeData } from '../types';
+import * as LZString from 'lz-string';
 
 interface SkillPoints {
   [skillId: string]: number;
@@ -38,23 +39,24 @@ interface SkillContextType {
 
 const SkillContext = createContext<SkillContextType | undefined>(undefined);
 
-// Helper functions for encoding/decoding builds
-const encodeBuild = (skillPoints: SkillPoints, selectedSkillsInNodes: Record<string, string>, className: string): string => {
-  const data = { skillPoints, selectedSkillsInNodes, className };
-  return btoa(JSON.stringify(data));
-};
-
-const decodeBuild = (encoded: string): { 
+// Helper function to decode the build from URL data
+const decodeBuild = (urlData: string): { 
   skillPoints: SkillPoints, 
   selectedSkillsInNodes: Record<string, string>,
   className: string 
 } => {
   try {
-    const data = JSON.parse(atob(encoded));
+    // Decompress the URL data
+    const decompressed = LZString.decompressFromEncodedURIComponent(urlData);
+    if (!decompressed) throw new Error('Failed to decompress data');
+    
+    // Parse the JSON data
+    const data = JSON.parse(decompressed);
+    
     return {
-      skillPoints: data.skillPoints || {},
-      selectedSkillsInNodes: data.selectedSkillsInNodes || {},
-      className: data.className || 'Hacker' // Default to Hacker if not specified
+      skillPoints: data.s || {},
+      selectedSkillsInNodes: data.n || {},
+      className: data.c || 'Hacker'
     };
   } catch (error) {
     console.error('Failed to decode build data:', error);
@@ -291,8 +293,14 @@ export function SkillProvider({ children }: { children: ReactNode }) {
 
   const exportBuildToURL = () => {
     try {
-      const encodedBuild = encodeBuild(skillPoints, selectedSkillsInNodes, currentClass);
-      return `${window.location.origin}${window.location.pathname}?build=${encodedBuild}`;
+      const data = { 
+        c: currentClass, 
+        s: Object.fromEntries(Object.entries(skillPoints).filter(([_, points]) => points > 0)),
+        n: selectedSkillsInNodes 
+      };
+      // Use the URL-safe compression method
+      const compressed = LZString.compressToEncodedURIComponent(JSON.stringify(data));
+      return `${window.location.origin}${window.location.pathname}?build=${compressed}`;
     } catch (error) {
       console.error('Failed to export build to URL:', error);
       return window.location.href;
@@ -301,15 +309,17 @@ export function SkillProvider({ children }: { children: ReactNode }) {
 
   const importBuildFromURL = (urlData: string) => {
     try {
-      const { skillPoints: importedSkillPoints, selectedSkillsInNodes: importedSelectedSkills, className } = decodeBuild(urlData);
+      const decompressed = LZString.decompressFromEncodedURIComponent(urlData);
+      if (!decompressed) throw new Error('Failed to decompress data');
       
+      const data = JSON.parse(decompressed);
       // First set the class
-      setCurrentClass(className);
+      setCurrentClass(data.c || 'Hacker');
       
-      // Then set the skills in the next tick
+      // Then set the skills
       setTimeout(() => {
-        setSkillPoints(importedSkillPoints);
-        setSelectedSkillsInNodes(importedSelectedSkills);
+        setSkillPoints(data.s || {});
+        setSelectedSkillsInNodes(data.n || {});
       }, 0);
     } catch (error) {
       console.error('Failed to import build from URL data:', error);
