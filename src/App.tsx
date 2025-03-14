@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { SkillTree } from './components/SkillTree';
 import { SkillTreeHeader } from './components/SkillTreeHeader';
 import { skillTrees } from './data/formattedSkillTrees';
@@ -8,15 +7,8 @@ import { useSkill } from './context/SkillContext';
 
 function AppContent() {
   const trees = skillTrees as SkillTrees;
-  const [selectedTree, setSelectedTree] = useState<keyof SkillTrees>(Object.keys(trees)[0] as keyof SkillTrees);
-  const { resetAllSkills } = useSkill();
+  const { currentClass } = useSkill();
   
-  const handleTreeChange = (value: keyof SkillTrees) => {
-    // Reset skills when changing class
-    resetAllSkills();
-    setSelectedTree(value as keyof SkillTrees);
-  };
-
   return (
     <div className="min-h-screen bg-white/10 p-4 sm:p-8">
       <div className="max-w-6xl mx-auto">
@@ -26,11 +18,9 @@ function AppContent() {
         
         <SkillTreeHeader
           trees={trees}
-          value={selectedTree}
-          onValueChange={handleTreeChange}
         />
         
-        <SkillTree tree={trees[selectedTree]} />
+        <SkillTree tree={trees[currentClass]} />
       </div>
     </div>
   );

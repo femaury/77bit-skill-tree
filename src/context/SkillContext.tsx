@@ -5,6 +5,13 @@ interface SkillPoints {
   [skillId: string]: number;
 }
 
+interface SavedBuild {
+  skillPoints: SkillPoints;
+  selectedSkillsInNodes: Record<string, string>;
+  timestamp: string;
+  className: string;
+}
+
 interface SkillContextType {
   skillPoints: SkillPoints;
   addSkillPoint: (skillId: string) => void;
@@ -19,34 +26,46 @@ interface SkillContextType {
   isSkillDisabled: (nodeId: string, skillId: string) => boolean;
   resetAllSkills: () => void;
   removeSkillPointsForHub: (hubChildNodeIds: string[], allNodes: SkillTreeData['children']) => void;
-  saveBuildToLocalStorage: (buildName: string) => void;
+  saveBuildToLocalStorage: (buildName: string, className: string) => void;
   loadBuildFromLocalStorage: (buildName: string) => void;
-  getSavedBuilds: () => string[];
+  getSavedBuilds: () => Array<{ name: string; className: string }>;
   deleteSavedBuild: (buildName: string) => void;
   exportBuildToURL: () => string;
   importBuildFromURL: (urlData: string) => void;
+  currentClass: string;
+  setCurrentClass: (className: string) => void;
 }
 
 const SkillContext = createContext<SkillContextType | undefined>(undefined);
 
 // Helper functions for encoding/decoding builds
-const encodeBuild = (skillPoints: SkillPoints, selectedSkillsInNodes: Record<string, string>): string => {
-  const data = { skillPoints, selectedSkillsInNodes };
+const encodeBuild = (skillPoints: SkillPoints, selectedSkillsInNodes: Record<string, string>, className: string): string => {
+  const data = { skillPoints, selectedSkillsInNodes, className };
   return btoa(JSON.stringify(data));
 };
 
-const decodeBuild = (encoded: string): { skillPoints: SkillPoints, selectedSkillsInNodes: Record<string, string> } => {
+const decodeBuild = (encoded: string): { 
+  skillPoints: SkillPoints, 
+  selectedSkillsInNodes: Record<string, string>,
+  className: string 
+} => {
   try {
-    return JSON.parse(atob(encoded));
+    const data = JSON.parse(atob(encoded));
+    return {
+      skillPoints: data.skillPoints || {},
+      selectedSkillsInNodes: data.selectedSkillsInNodes || {},
+      className: data.className || 'Hacker' // Default to Hacker if not specified
+    };
   } catch (error) {
     console.error('Failed to decode build data:', error);
-    return { skillPoints: {}, selectedSkillsInNodes: {} };
+    return { skillPoints: {}, selectedSkillsInNodes: {}, className: 'Hacker' };
   }
 };
 
 export function SkillProvider({ children }: { children: ReactNode }) {
   const [skillPoints, setSkillPoints] = useState<SkillPoints>({});
   const [selectedSkillsInNodes, setSelectedSkillsInNodes] = useState<Record<string, string>>({});
+  const [currentClass, setCurrentClass] = useState<string>('Hacker');
   
   const maxPlayerLevel = 30;
   // Calculate total spent points from user-allocated skill points
@@ -61,13 +80,20 @@ export function SkillProvider({ children }: { children: ReactNode }) {
     
     if (buildData) {
       try {
-        const { skillPoints: importedSkillPoints, selectedSkillsInNodes: importedSelectedSkills } = decodeBuild(buildData);
-        setSkillPoints(importedSkillPoints);
-        setSelectedSkillsInNodes(importedSelectedSkills);
+        const { skillPoints: importedSkillPoints, selectedSkillsInNodes: importedSelectedSkills, className } = decodeBuild(buildData);
         
-        // Clear the URL after loading the build
-        const newUrl = window.location.pathname + window.location.hash;
-        window.history.replaceState({}, '', newUrl);
+        // First set the class
+        setCurrentClass(className);
+        
+        // Then set the skills in the next tick
+        setTimeout(() => {
+          setSkillPoints(importedSkillPoints);
+          setSelectedSkillsInNodes(importedSelectedSkills);
+          
+          // Clear the URL after loading the build
+          const newUrl = window.location.pathname + window.location.hash;
+          window.history.replaceState({}, '', newUrl);
+        }, 0);
       } catch (error) {
         console.error('Failed to import build from URL:', error);
       }
@@ -202,7 +228,7 @@ export function SkillProvider({ children }: { children: ReactNode }) {
     });
   };
 
-  const saveBuildToLocalStorage = (buildName: string) => {
+  const saveBuildToLocalStorage = (buildName: string, className: string) => {
     try {
       // Get existing builds or initialize empty object
       const savedBuilds = JSON.parse(localStorage.getItem('skillTreeBuilds') || '{}');
@@ -211,7 +237,8 @@ export function SkillProvider({ children }: { children: ReactNode }) {
       savedBuilds[buildName] = {
         skillPoints,
         selectedSkillsInNodes,
-        timestamp: new Date().toISOString()
+        timestamp: new Date().toISOString(),
+        className
       };
       
       // Save back to localStorage
@@ -224,11 +251,12 @@ export function SkillProvider({ children }: { children: ReactNode }) {
   const loadBuildFromLocalStorage = (buildName: string) => {
     try {
       const savedBuilds = JSON.parse(localStorage.getItem('skillTreeBuilds') || '{}');
-      const build = savedBuilds[buildName];
+      const build = savedBuilds[buildName] as SavedBuild;
       
       if (build) {
         setSkillPoints(build.skillPoints);
         setSelectedSkillsInNodes(build.selectedSkillsInNodes);
+        setCurrentClass(build.className);
       }
     } catch (error) {
       console.error('Failed to load build from localStorage:', error);
@@ -238,7 +266,10 @@ export function SkillProvider({ children }: { children: ReactNode }) {
   const getSavedBuilds = () => {
     try {
       const savedBuilds = JSON.parse(localStorage.getItem('skillTreeBuilds') || '{}');
-      return Object.keys(savedBuilds);
+      return Object.entries(savedBuilds).map(([name, build]) => ({
+        name,
+        className: (build as SavedBuild).className || 'Unknown'
+      }));
     } catch (error) {
       console.error('Failed to get saved builds from localStorage:', error);
       return [];
@@ -260,7 +291,7 @@ export function SkillProvider({ children }: { children: ReactNode }) {
 
   const exportBuildToURL = () => {
     try {
-      const encodedBuild = encodeBuild(skillPoints, selectedSkillsInNodes);
+      const encodedBuild = encodeBuild(skillPoints, selectedSkillsInNodes, currentClass);
       return `${window.location.origin}${window.location.pathname}?build=${encodedBuild}`;
     } catch (error) {
       console.error('Failed to export build to URL:', error);
@@ -270,9 +301,16 @@ export function SkillProvider({ children }: { children: ReactNode }) {
 
   const importBuildFromURL = (urlData: string) => {
     try {
-      const { skillPoints: importedSkillPoints, selectedSkillsInNodes: importedSelectedSkills } = decodeBuild(urlData);
-      setSkillPoints(importedSkillPoints);
-      setSelectedSkillsInNodes(importedSelectedSkills);
+      const { skillPoints: importedSkillPoints, selectedSkillsInNodes: importedSelectedSkills, className } = decodeBuild(urlData);
+      
+      // First set the class
+      setCurrentClass(className);
+      
+      // Then set the skills in the next tick
+      setTimeout(() => {
+        setSkillPoints(importedSkillPoints);
+        setSelectedSkillsInNodes(importedSelectedSkills);
+      }, 0);
     } catch (error) {
       console.error('Failed to import build from URL data:', error);
     }
@@ -299,7 +337,9 @@ export function SkillProvider({ children }: { children: ReactNode }) {
         getSavedBuilds,
         deleteSavedBuild,
         exportBuildToURL,
-        importBuildFromURL
+        importBuildFromURL,
+        currentClass,
+        setCurrentClass
       }}
     >
       {children}

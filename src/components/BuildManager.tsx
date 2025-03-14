@@ -5,6 +5,8 @@ import * as Collapsible from '@radix-ui/react-collapsible';
 
 interface BuildManagerProps {
   onClose: () => void;
+  currentClass: string;
+  onClassChange: (className: string) => void;
 }
 
 const secondaryButtonClass = `px-4 py-2 bg-black/10 text-white rounded-lg hover:bg-black/20 
@@ -14,7 +16,7 @@ const secondaryButtonClass = `px-4 py-2 bg-black/10 text-white rounded-lg hover:
 const primaryButtonClass = `px-4 py-2 bg-accent text-black rounded-lg hover:bg-accent/80 
                         transition-colors font-medium shadow-sm cursor-pointer`;
 
-export function BuildManager({ onClose }: BuildManagerProps) {
+export function BuildManager({ onClose, currentClass, onClassChange }: BuildManagerProps) {
   const [buildName, setBuildName] = useState('');
   const [showSavedBuilds, setShowSavedBuilds] = useState(false);
   const [shareUrl, setShareUrl] = useState('');
@@ -37,19 +39,24 @@ export function BuildManager({ onClose }: BuildManagerProps) {
       return;
     }
     
-    saveBuildToLocalStorage(buildName);
+    saveBuildToLocalStorage(buildName, currentClass);
     setBuildName('');
     setNotification('Build saved successfully!');
     setTimeout(() => setNotification(''), 3000);
     onClose();
   };
 
-  const handleLoadBuild = (name: string) => {
-    loadBuildFromLocalStorage(name);
-    setShowSavedBuilds(false);
-    setNotification(`Loaded build: ${name}`);
-    setTimeout(() => setNotification(''), 3000);
-    onClose();
+  const handleLoadBuild = (name: string, className: string) => {
+    // First change the class
+    onClassChange(className);
+    // Wait for next render to load the build
+    setTimeout(() => {
+      loadBuildFromLocalStorage(name);
+      setShowSavedBuilds(false);
+      setNotification(`Loaded build: ${name}`);
+      setTimeout(() => setNotification(''), 3000);
+      onClose();
+    }, 0);
   };
 
   const handleDeleteBuild = (name: string, e: React.MouseEvent) => {
@@ -114,13 +121,14 @@ export function BuildManager({ onClose }: BuildManagerProps) {
                 {getSavedBuilds().length > 0 ? (
                   <div className="max-h-[200px] overflow-y-auto scrollbar">
                     <ul className="divide-y divide-white/20">
-                      {getSavedBuilds().map((name) => (
+                      {getSavedBuilds().map(({ name, className }) => (
                         <li key={name} className="flex justify-between items-center px-3 py-2 hover:bg-white/5">
                           <button
-                            onClick={() => handleLoadBuild(name)}
-                            className="text-left text-white hover:text-accent flex-1 cursor-pointer"
+                            onClick={() => handleLoadBuild(name, className)}
+                            className="text-left flex-1 cursor-pointer group"
                           >
-                            {name}
+                            <span className="text-white group-hover:text-accent">{name}</span>
+                            <span className="text-white/50 text-sm ml-2">{className}</span>
                           </button>
                           <button
                             onClick={(e) => handleDeleteBuild(name, e)}
