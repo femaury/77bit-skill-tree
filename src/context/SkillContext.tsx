@@ -134,6 +134,14 @@ export function SkillProvider({ children }: { children: ReactNode }) {
   const playerLevel = Math.min(totalSpentPoints + 1, maxPlayerLevel);
   const remainingPoints = maxPlayerLevel - playerLevel;
 
+  // Function to properly set the current class and reset skills
+  const changeClass = (className: string) => {
+    // Reset all skills and selections when changing class
+    setSkillPoints({});
+    setSelectedSkillsInNodes({});
+    setCurrentClass(className);
+  };
+
   // Check URL for build data on initial load
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
@@ -412,7 +420,7 @@ export function SkillProvider({ children }: { children: ReactNode }) {
         exportBuildToURL,
         importBuildFromURL,
         currentClass,
-        setCurrentClass
+        setCurrentClass: changeClass
       }}
     >
       {children}
