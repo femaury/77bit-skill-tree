@@ -17,13 +17,19 @@ export function SkillTreeHeader({ trees }: SkillTreeHeaderProps) {
     maxPlayerLevel, 
     resetAllSkills,
     currentClass,
-    setCurrentClass
+    setCurrentClass,
+    changeClassPreservingSkills
   } = useSkill();
   const [isModalOpen, setIsModalOpen] = useState(false);
   
   // Handle class changes
   const handleClassChange = (newClass: string) => {
     setCurrentClass(newClass);
+  };
+  
+  // Handle class changes that preserve skills (for build loading)
+  const handlePreserveClassChange = (newClass: string) => {
+    changeClassPreservingSkills(newClass);
   };
   
   return (
@@ -130,7 +136,7 @@ export function SkillTreeHeader({ trees }: SkillTreeHeaderProps) {
         <BuildManager 
           onClose={() => setIsModalOpen(false)} 
           currentClass={currentClass}
-          onClassChange={handleClassChange}
+          onPreserveClassChange={handlePreserveClassChange}
         />
       </Modal>
     </>

@@ -6,7 +6,7 @@ import * as Collapsible from '@radix-ui/react-collapsible';
 interface BuildManagerProps {
   onClose: () => void;
   currentClass: string;
-  onClassChange: (className: string) => void;
+  onPreserveClassChange?: (className: string) => void;
 }
 
 const secondaryButtonClass = `px-4 py-2 bg-black/10 text-white rounded-lg hover:bg-black/20 
@@ -19,7 +19,11 @@ const primaryButtonClass = `px-4 py-2 bg-accent text-black rounded-lg hover:bg-a
 const dangerButtonClass = `px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 
                         transition-colors font-medium shadow-sm cursor-pointer`;
 
-export function BuildManager({ onClose, currentClass, onClassChange }: BuildManagerProps) {
+export function BuildManager({ 
+  onClose, 
+  currentClass, 
+  onPreserveClassChange 
+}: BuildManagerProps) {
   const [buildName, setBuildName] = useState('');
   const [showSavedBuilds, setShowSavedBuilds] = useState(false);
   const [shareUrl, setShareUrl] = useState('');
@@ -34,7 +38,8 @@ export function BuildManager({ onClose, currentClass, onClassChange }: BuildMana
     getSavedBuilds,
     deleteSavedBuild,
     exportBuildToURL,
-    buildExists
+    buildExists,
+    changeClassPreservingSkills
   } = useSkill();
 
   const handleSaveBuild = () => {
@@ -55,10 +60,15 @@ export function BuildManager({ onClose, currentClass, onClassChange }: BuildMana
   };
 
   const completeSaveBuild = () => {
-    saveBuildToLocalStorage(buildName, currentClass);
+    const result = saveBuildToLocalStorage(buildName, currentClass);
     setBuildName('');
     setShowConfirmOverwrite(false);
-    setNotification('Build saved successfully!');
+    
+    const message = result.exists 
+      ? `Build '${buildName}' has been overwritten!` 
+      : 'Build saved successfully!';
+    
+    setNotification(message);
     setTimeout(() => setNotification(''), 3000);
     onClose();
   };
@@ -67,17 +77,33 @@ export function BuildManager({ onClose, currentClass, onClassChange }: BuildMana
     setShowConfirmOverwrite(false);
   };
 
-  const handleLoadBuild = (name: string, className: string) => {
-    // First change the class
-    onClassChange(className);
-    // Wait for next render to load the build
-    setTimeout(() => {
-      loadBuildFromLocalStorage(name);
+  const handleLoadBuild = (name: string, className: string, key: string) => {
+    // If we need to change class but preserve skills for loading
+    if (className !== currentClass) {
+      // Use the special change class function if provided by parent
+      if (onPreserveClassChange) {
+        onPreserveClassChange(className);
+      } else {
+        // Otherwise use our context function directly
+        changeClassPreservingSkills(className);
+      }
+      
+      // Force a re-render before loading the build
+      setTimeout(() => {
+        loadBuildFromLocalStorage(key);
+        setShowSavedBuilds(false);
+        setNotification(`Loaded build: ${name}`);
+        setTimeout(() => setNotification(''), 3000);
+        onClose();
+      }, 50);
+    } else {
+      // Same class, load directly
+      loadBuildFromLocalStorage(key);
       setShowSavedBuilds(false);
       setNotification(`Loaded build: ${name}`);
       setTimeout(() => setNotification(''), 3000);
       onClose();
-    }, 0);
+    }
   };
 
   const handleDeleteBuild = (key: string, name: string, e: React.MouseEvent) => {
@@ -170,7 +196,7 @@ export function BuildManager({ onClose, currentClass, onClassChange }: BuildMana
                       {getSavedBuilds().map(({ name, className, key }) => (
                         <li key={key} className="flex justify-between items-center px-3 py-2 hover:bg-white/5">
                           <button
-                            onClick={() => handleLoadBuild(name, className)}
+                            onClick={() => handleLoadBuild(name, className, key)}
                             className="text-left flex-1 cursor-pointer group"
                           >
                             <span className="text-white group-hover:text-accent">{name}</span>

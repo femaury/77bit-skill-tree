@@ -28,13 +28,14 @@ interface SkillContextType {
   resetAllSkills: () => void;
   removeSkillPointsForHub: (hubChildNodeIds: string[], allNodes: SkillTreeData['children']) => void;
   saveBuildToLocalStorage: (buildName: string, className: string) => { exists: boolean };
-  loadBuildFromLocalStorage: (buildName: string) => void;
+  loadBuildFromLocalStorage: (buildKeyOrName: string) => void;
   getSavedBuilds: () => Array<{ name: string; className: string; key: string }>;
   deleteSavedBuild: (buildKey: string) => void;
   exportBuildToURL: () => string;
   importBuildFromURL: (urlData: string) => void;
   currentClass: string;
   setCurrentClass: (className: string) => void;
+  changeClassPreservingSkills: (className: string) => void;
   buildExists: (buildName: string, className: string) => boolean;
 }
 
@@ -136,10 +137,12 @@ export function SkillProvider({ children }: { children: ReactNode }) {
   const remainingPoints = maxPlayerLevel - playerLevel;
 
   // Function to properly set the current class and reset skills
-  const changeClass = (className: string) => {
-    // Reset all skills and selections when changing class
-    setSkillPoints({});
-    setSelectedSkillsInNodes({});
+  const changeClass = (className: string, resetSkills = true) => {
+    // Only reset skills if explicitly requested (default behavior)
+    if (resetSkills) {
+      setSkillPoints({});
+      setSelectedSkillsInNodes({});
+    }
     setCurrentClass(className);
   };
 
@@ -170,6 +173,40 @@ export function SkillProvider({ children }: { children: ReactNode }) {
       }
     }
   }, []);
+
+  // Migrate old builds to the new format
+  useEffect(() => {
+    try {
+      const savedBuilds = JSON.parse(localStorage.getItem('skillTreeBuilds') || '{}');
+      let migrated = false;
+      
+      // Find and convert old format builds to new format
+      Object.entries(savedBuilds).forEach(([key, build]) => {
+        const buildData = build as SavedBuild;
+        
+        // If this is an old format key (no class prefix)
+        if (!key.includes(':') && buildData.className) {
+          // Create a new key with class prefix
+          const newKey = `${buildData.className}:${key}`;
+          
+          // Only migrate if the new key doesn't already exist
+          if (!savedBuilds[newKey]) {
+            savedBuilds[newKey] = buildData;
+            delete savedBuilds[key];
+            migrated = true;
+          }
+        }
+      });
+      
+      // Save the migrated builds back
+      if (migrated) {
+        localStorage.setItem('skillTreeBuilds', JSON.stringify(savedBuilds));
+        console.log('Migrated old build format to new format');
+      }
+    } catch (error) {
+      console.error('Failed to migrate builds:', error);
+    }
+  }, []); // Run once on component mount
 
   const addSkillPoint = (skillId: string) => {
     setSkillPoints(prev => {
@@ -307,6 +344,9 @@ export function SkillProvider({ children }: { children: ReactNode }) {
       // Create class-specific key to allow same name across different classes
       const buildKey = `${className}:${buildName}`;
       
+      // Check if build already exists
+      const exists = !!savedBuilds[buildKey];
+      
       // Save current build state
       savedBuilds[buildKey] = {
         skillPoints,
@@ -318,7 +358,7 @@ export function SkillProvider({ children }: { children: ReactNode }) {
       // Save back to localStorage
       localStorage.setItem('skillTreeBuilds', JSON.stringify(savedBuilds));
       
-      return { exists: false }; // Return existence status for UI handling
+      return { exists };
     } catch (error) {
       console.error('Failed to save build to localStorage:', error);
       return { exists: false };
@@ -337,26 +377,36 @@ export function SkillProvider({ children }: { children: ReactNode }) {
     }
   };
 
-  const loadBuildFromLocalStorage = (buildName: string) => {
+  const loadBuildFromLocalStorage = (buildKeyOrName: string) => {
     try {
       const savedBuilds = JSON.parse(localStorage.getItem('skillTreeBuilds') || '{}');
       
-      // First try to load with class-specific key (new format)
-      const classSpecificKey = `${currentClass}:${buildName}`;
-      let build = savedBuilds[classSpecificKey] as SavedBuild;
+      // First check if the key exists directly (new approach for loading by key)
+      let build = savedBuilds[buildKeyOrName] as SavedBuild | undefined;
       
-      // If not found, try the old format for backward compatibility
+      // If not found by direct key, try to construct a class-specific key (old approach)
       if (!build) {
-        build = savedBuilds[buildName] as SavedBuild;
+        const classSpecificKey = `${currentClass}:${buildKeyOrName}`;
+        build = savedBuilds[classSpecificKey] as SavedBuild | undefined;
+      }
+      
+      // Fallback to the original name for legacy support
+      if (!build) {
+        build = savedBuilds[buildKeyOrName] as SavedBuild | undefined;
       }
       
       if (build) {
-        setSkillPoints(build.skillPoints);
-        setSelectedSkillsInNodes(build.selectedSkillsInNodes);
-        // Don't override current class if using class-specific key
-        if (!classSpecificKey && build.className) {
-          setCurrentClass(build.className);
-        }
+        console.log('Loading build:', build); // Debug log
+        
+        // Ensure we have valid data
+        const skillPointsToLoad = build.skillPoints ? JSON.parse(JSON.stringify(build.skillPoints)) : {};
+        const selectedSkillsToLoad = build.selectedSkillsInNodes ? JSON.parse(JSON.stringify(build.selectedSkillsInNodes)) : {};
+        
+        // Set the skill points and selected skills with fresh objects
+        setSkillPoints(skillPointsToLoad);
+        setSelectedSkillsInNodes(selectedSkillsToLoad);
+      } else {
+        console.warn(`Build '${buildKeyOrName}' not found`);
       }
     } catch (error) {
       console.error('Failed to load build from localStorage:', error);
@@ -456,7 +506,8 @@ export function SkillProvider({ children }: { children: ReactNode }) {
         exportBuildToURL,
         importBuildFromURL,
         currentClass,
-        setCurrentClass: changeClass,
+        setCurrentClass: (className: string) => changeClass(className, true),
+        changeClassPreservingSkills: (className: string) => changeClass(className, false),
         buildExists
       }}
     >
