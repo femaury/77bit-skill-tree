@@ -16,12 +16,16 @@ const secondaryButtonClass = `px-4 py-2 bg-black/10 text-white rounded-lg hover:
 const primaryButtonClass = `px-4 py-2 bg-accent text-black rounded-lg hover:bg-accent/80 
                         transition-colors font-medium shadow-sm cursor-pointer`;
 
+const dangerButtonClass = `px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 
+                        transition-colors font-medium shadow-sm cursor-pointer`;
+
 export function BuildManager({ onClose, currentClass, onClassChange }: BuildManagerProps) {
   const [buildName, setBuildName] = useState('');
   const [showSavedBuilds, setShowSavedBuilds] = useState(false);
   const [shareUrl, setShareUrl] = useState('');
   const [showShareUrl, setShowShareUrl] = useState(false);
   const [notification, setNotification] = useState('');
+  const [showConfirmOverwrite, setShowConfirmOverwrite] = useState(false);
   const urlInputRef = useRef<HTMLInputElement>(null);
   
   const {
@@ -30,6 +34,7 @@ export function BuildManager({ onClose, currentClass, onClassChange }: BuildMana
     getSavedBuilds,
     deleteSavedBuild,
     exportBuildToURL,
+    buildExists
   } = useSkill();
 
   const handleSaveBuild = () => {
@@ -39,11 +44,27 @@ export function BuildManager({ onClose, currentClass, onClassChange }: BuildMana
       return;
     }
     
+    // Check if build with this name already exists for current class
+    if (buildExists(buildName, currentClass)) {
+      setShowConfirmOverwrite(true);
+      return;
+    }
+    
+    // No existing build, save directly
+    completeSaveBuild();
+  };
+
+  const completeSaveBuild = () => {
     saveBuildToLocalStorage(buildName, currentClass);
     setBuildName('');
+    setShowConfirmOverwrite(false);
     setNotification('Build saved successfully!');
     setTimeout(() => setNotification(''), 3000);
     onClose();
+  };
+
+  const cancelSaveBuild = () => {
+    setShowConfirmOverwrite(false);
   };
 
   const handleLoadBuild = (name: string, className: string) => {
@@ -59,9 +80,9 @@ export function BuildManager({ onClose, currentClass, onClassChange }: BuildMana
     }, 0);
   };
 
-  const handleDeleteBuild = (name: string, e: React.MouseEvent) => {
+  const handleDeleteBuild = (key: string, name: string, e: React.MouseEvent) => {
     e.stopPropagation();
-    deleteSavedBuild(name);
+    deleteSavedBuild(key);
     setNotification(`Deleted build: ${name}`);
     setTimeout(() => setNotification(''), 3000);
   };
@@ -105,6 +126,31 @@ export function BuildManager({ onClose, currentClass, onClassChange }: BuildMana
           </div>
         </div>
         
+        {/* Overwrite Confirmation */}
+        {showConfirmOverwrite && (
+          <div className="rounded-lg border-2 border-white/20 bg-black/80 p-4 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50 shadow-xl backdrop-blur-sm">
+            <h3 className="text-white font-semibold mb-4">Confirm Overwrite</h3>
+            <p className="text-white/80 mb-6">
+              A build named <span className="text-accent font-semibold">{buildName}</span> already exists for the {currentClass} class.
+              Do you want to overwrite it?
+            </p>
+            <div className="flex justify-end gap-3">
+              <button
+                onClick={cancelSaveBuild}
+                className={secondaryButtonClass}
+              >
+                Cancel
+              </button>
+              <button
+                onClick={completeSaveBuild}
+                className={dangerButtonClass}
+              >
+                Overwrite
+              </button>
+            </div>
+          </div>
+        )}
+        
         {/* Load Build */}
         <div>
           <h3 className="text-white font-semibold mb-3">Saved Builds</h3>
@@ -121,8 +167,8 @@ export function BuildManager({ onClose, currentClass, onClassChange }: BuildMana
                 {getSavedBuilds().length > 0 ? (
                   <div className="max-h-[200px] overflow-y-auto scrollbar">
                     <ul className="divide-y divide-white/20">
-                      {getSavedBuilds().map(({ name, className }) => (
-                        <li key={name} className="flex justify-between items-center px-3 py-2 hover:bg-white/5">
+                      {getSavedBuilds().map(({ name, className, key }) => (
+                        <li key={key} className="flex justify-between items-center px-3 py-2 hover:bg-white/5">
                           <button
                             onClick={() => handleLoadBuild(name, className)}
                             className="text-left flex-1 cursor-pointer group"
@@ -131,7 +177,7 @@ export function BuildManager({ onClose, currentClass, onClassChange }: BuildMana
                             <span className="text-white/50 text-sm ml-2">{className}</span>
                           </button>
                           <button
-                            onClick={(e) => handleDeleteBuild(name, e)}
+                            onClick={(e) => handleDeleteBuild(key, name, e)}
                             className="ml-4 text-red-400 hover:text-red-300 p-1 cursor-pointer"
                           >
                             <TrashIcon className="h-4 w-4" />
@@ -195,6 +241,11 @@ export function BuildManager({ onClose, currentClass, onClassChange }: BuildMana
                      z-[100]">
           {notification}
         </div>
+      )}
+
+      {/* Add an overlay when confirmation dialog is showing */}
+      {showConfirmOverwrite && (
+        <div className="fixed inset-0 bg-black/60 z-40" onClick={cancelSaveBuild}></div>
       )}
     </>
   );

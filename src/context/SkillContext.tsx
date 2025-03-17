@@ -27,14 +27,15 @@ interface SkillContextType {
   isSkillDisabled: (nodeId: string, skillId: string) => boolean;
   resetAllSkills: () => void;
   removeSkillPointsForHub: (hubChildNodeIds: string[], allNodes: SkillTreeData['children']) => void;
-  saveBuildToLocalStorage: (buildName: string, className: string) => void;
+  saveBuildToLocalStorage: (buildName: string, className: string) => { exists: boolean };
   loadBuildFromLocalStorage: (buildName: string) => void;
-  getSavedBuilds: () => Array<{ name: string; className: string }>;
-  deleteSavedBuild: (buildName: string) => void;
+  getSavedBuilds: () => Array<{ name: string; className: string; key: string }>;
+  deleteSavedBuild: (buildKey: string) => void;
   exportBuildToURL: () => string;
   importBuildFromURL: (urlData: string) => void;
   currentClass: string;
   setCurrentClass: (className: string) => void;
+  buildExists: (buildName: string, className: string) => boolean;
 }
 
 const SkillContext = createContext<SkillContextType | undefined>(undefined);
@@ -303,8 +304,11 @@ export function SkillProvider({ children }: { children: ReactNode }) {
       // Get existing builds or initialize empty object
       const savedBuilds = JSON.parse(localStorage.getItem('skillTreeBuilds') || '{}');
       
+      // Create class-specific key to allow same name across different classes
+      const buildKey = `${className}:${buildName}`;
+      
       // Save current build state
-      savedBuilds[buildName] = {
+      savedBuilds[buildKey] = {
         skillPoints,
         selectedSkillsInNodes,
         timestamp: new Date().toISOString(),
@@ -313,20 +317,46 @@ export function SkillProvider({ children }: { children: ReactNode }) {
       
       // Save back to localStorage
       localStorage.setItem('skillTreeBuilds', JSON.stringify(savedBuilds));
+      
+      return { exists: false }; // Return existence status for UI handling
     } catch (error) {
       console.error('Failed to save build to localStorage:', error);
+      return { exists: false };
+    }
+  };
+
+  // Check if a build exists with the given name for the specified class
+  const buildExists = (buildName: string, className: string): boolean => {
+    try {
+      const savedBuilds = JSON.parse(localStorage.getItem('skillTreeBuilds') || '{}');
+      const buildKey = `${className}:${buildName}`;
+      return !!savedBuilds[buildKey];
+    } catch (error) {
+      console.error('Failed to check if build exists:', error);
+      return false;
     }
   };
 
   const loadBuildFromLocalStorage = (buildName: string) => {
     try {
       const savedBuilds = JSON.parse(localStorage.getItem('skillTreeBuilds') || '{}');
-      const build = savedBuilds[buildName] as SavedBuild;
+      
+      // First try to load with class-specific key (new format)
+      const classSpecificKey = `${currentClass}:${buildName}`;
+      let build = savedBuilds[classSpecificKey] as SavedBuild;
+      
+      // If not found, try the old format for backward compatibility
+      if (!build) {
+        build = savedBuilds[buildName] as SavedBuild;
+      }
       
       if (build) {
         setSkillPoints(build.skillPoints);
         setSelectedSkillsInNodes(build.selectedSkillsInNodes);
-        setCurrentClass(build.className);
+        // Don't override current class if using class-specific key
+        if (!classSpecificKey && build.className) {
+          setCurrentClass(build.className);
+        }
       }
     } catch (error) {
       console.error('Failed to load build from localStorage:', error);
@@ -336,22 +366,28 @@ export function SkillProvider({ children }: { children: ReactNode }) {
   const getSavedBuilds = () => {
     try {
       const savedBuilds = JSON.parse(localStorage.getItem('skillTreeBuilds') || '{}');
-      return Object.entries(savedBuilds).map(([name, build]) => ({
-        name,
-        className: (build as SavedBuild).className || 'Unknown'
-      }));
+      return Object.entries(savedBuilds).map(([key, build]) => {
+        const isNewFormat = key.includes(':');
+        const name = isNewFormat ? key.split(':', 2)[1] : key;
+        const className = (build as SavedBuild).className || 'Unknown';
+        return {
+          name,
+          className,
+          key // Return the full key for deletion
+        };
+      });
     } catch (error) {
       console.error('Failed to get saved builds from localStorage:', error);
       return [];
     }
   };
 
-  const deleteSavedBuild = (buildName: string) => {
+  const deleteSavedBuild = (buildKey: string) => {
     try {
       const savedBuilds = JSON.parse(localStorage.getItem('skillTreeBuilds') || '{}');
       
-      if (savedBuilds[buildName]) {
-        delete savedBuilds[buildName];
+      if (savedBuilds[buildKey]) {
+        delete savedBuilds[buildKey];
         localStorage.setItem('skillTreeBuilds', JSON.stringify(savedBuilds));
       }
     } catch (error) {
@@ -420,7 +456,8 @@ export function SkillProvider({ children }: { children: ReactNode }) {
         exportBuildToURL,
         importBuildFromURL,
         currentClass,
-        setCurrentClass: changeClass
+        setCurrentClass: changeClass,
+        buildExists
       }}
     >
       {children}
