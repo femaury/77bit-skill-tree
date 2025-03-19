@@ -1,7 +1,17 @@
 @import "tailwindcss";
 
+@font-face {
+  font-family: 'Radiona Black';
+  src: url('/radiona-black.woff2') format('woff2'),
+       url('/radiona-black.woff') format('woff');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
 @theme {
   --default-font-family: 'Red Hat Mono', monospace;
+  --title-font-family: 'Radiona Black', sans-serif;
 
   --color-accent: #ffac02;
   --color-secondary: #69ffe4
@@ -17,9 +27,11 @@
   }
 }
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@layer components {
+  .title-font {
+    font-family: var(--title-font-family);
+  }
+}
 
 @layer utilities {
   .scrollbar::-webkit-scrollbar {
