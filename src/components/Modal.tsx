@@ -42,13 +42,13 @@ export function Modal({ isOpen, onClose, title, children }: ModalProps) {
     <div className="fixed inset-0 bg-black/70 backdrop-blur-xs flex items-center justify-center z-50 p-4">
       <div 
         ref={modalRef}
-        className="bg-gray-900 rounded-lg shadow-lg max-w-md w-full max-h-[90vh] overflow-auto scrollbar"
+        className="bg-[#111111] rounded-lg shadow-lg max-w-md w-full max-h-[90vh] overflow-auto scrollbar"
       >
         <div className="flex justify-between items-center p-4 border-b border-gray-700">
           <h2 className="text-lg font-bold text-accent">{title}</h2>
           <button 
             onClick={onClose}
-            className="text-gray-400 hover:text-white"
+            className="text-gray-400 hover:text-white cursor-pointer"
           >
             ✕
           </button>
